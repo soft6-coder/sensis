@@ -1,0 +1,24 @@
+.first-half {
+  /* height: 65vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-width {
+  width: 400px;
+}
+#overview-container {
+  padding: 16px
+}
+
+@media only screen and (min-width: 800px) {
+  .first-half {
+    /* height: 80vh; */
+  }
+  .image-width {
+    width: 680px;
+  }
+  #overview-container {
+    padding: 16px 84px 16px 32px
+  }
+}

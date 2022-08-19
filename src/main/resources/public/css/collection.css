@@ -1,0 +1,39 @@
+.background-height {
+  height: 220px;
+}
+.background-image-height {
+  height: 190px;
+}
+.width {
+  width: 100%;
+}
+.width-2 {
+  width: 100%;
+}
+.padding-background {
+  padding: 0px;
+}
+#activity-width {
+  width: 30%
+}
+
+@media only screen and (min-width: 800px) {
+  #activity-width {
+    width: 10%
+  }
+  .background-height {
+    height: 320px;
+  }
+  .background-image-height {
+    height: 300px;
+  }
+  .width {
+    width: 85%;
+  }
+  .width-2 {
+    width: 67%;
+  }
+  .padding-background {
+    padding: 2% 15%;
+  }
+}

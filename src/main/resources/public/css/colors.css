@@ -1,0 +1,53 @@
+.background-brown {
+  background-color: rgb(34, 37, 40);
+}
+.background-brown-2 {
+  background-color: rgb(40, 44, 75);
+}
+.text-gradient {
+  background-image: linear-gradient(45deg, #1868B7, #FFFFFF);
+  background-clip: text;
+  color: transparent;
+}
+.text-grey {
+  color: rgb(192, 192, 192);
+}
+.text-grey-2 {
+  color: rgb(146, 146, 146);
+}
+.text-blue {
+  color: rgb(21, 89, 157);
+}
+.background-primary {
+  background-color: rgb(25, 28, 31);
+}
+.background-blue {
+  background-color: rgb(21, 89, 157);
+}
+.background-blue-2 {
+  background-color: rgb(24, 104, 183);
+}
+.background-pink {
+  background-color: rgb(255, 92, 145);
+}
+.background-purple {
+  background-color: rgb(174, 100, 218);
+}
+.background-yellow {
+  background-color: rgb(250, 114, 12);
+}
+.background-pink-2 {
+  background-color: rgb(246, 74, 110);
+}
+.background-blue-3 {
+  background-color: rgb(60, 33, 191);
+}
+.background-cyan {
+  background-color: rgb(0, 115, 180);
+}
+.background-brown-3 {
+  background-color: rgb(88, 80, 76);
+}
+.background-green {
+  background-color: rgb(0, 142, 134);
+}

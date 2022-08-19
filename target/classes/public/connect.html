@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensis – Community-centric NFT Marketplace</title>
+    <link rel="stylesheet" href="./css/w3.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" href="./css/font.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/colors.css" />
+  </head>
+  <body>
+    <section>
+      <div class="w3-row nav w3-top" style="position: relative">
+        <div class="w3-col s4 l2">
+          <a href="/">
+            <div
+              class="background-purple w3-round-xlarge"
+              style="width: 40px; height: 40px; padding: 8px"
+            >
+              <img src="./images/logo.png" alt="" style="width: 100%" />
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="padding-2">
+        <div class="wallet-width">
+          <p class="jumbo">Connect Wallet</p>
+          <p class="bold text-grey-2">
+            Choose how you want to connect. There are several wallet providers.
+          </p>
+
+          <div>
+            <p class="small bold text-grey-2 no-margin-2">Recent</p>
+            <div
+            
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img src="./images/metamask.svg" alt="" style="width: 70%" />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-metamask" class="no-margin bold pointer">Metamask</p>
+              </div>
+            </div>
+            <p class="small bold text-grey-2 no-margin-2">Popular</p>
+            <div
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img
+                  src="./images/walletconnect.svg"
+                  alt=""
+                  style="width: 75%"
+                />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-walletconnect" class="no-margin bold pointer">WalletConnect</p>
+              </div>
+            </div>
+            <div
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img src="./images/coinbase.svg" alt="" style="width: 75%" />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-coinbase" class="no-margin bold pointer">Coinbase Wallet</p>
+              </div>
+            </div>
+            <p class="small bold text-grey-2 no-margin-2">More</p>
+            <div
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img src="./images/torus.svg" alt="" style="width: 75%" />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-torus" class="no-margin bold pointer">Torus</p>
+              </div>
+            </div>
+            <div
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img src="./images/portis.svg" alt="" style="width: 75%" />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-portis" class="no-margin bold pointer">Portis</p>
+              </div>
+            </div>
+            <div
+              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+            >
+              <div class="w3-col s2">
+                <img
+                  src="./images/myetherwallet.svg"
+                  alt=""
+                  style="width: 75%"
+                />
+              </div>
+              <div class="w3-col s10" style="margin-top: 12px">
+                <p id="connect-myetherwallet" class="no-margin bold pointer">MyEtherWallet</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./js/ERC20.js"></script>
+    <script type="text/babel" src="./js/connect.js"></script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+.bold {
+    font-weight: 600;
+}
+.jumbo {
+    font-size: 29px;
+    font-weight: 600;
+}
+.jumbo-2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+.medium {
+    font-size: 14px;
+}
+.big {
+    font-size: 18px;
+}
+.bigger {
+    font-size: 22px;
+}
+.biggest {
+    font-size: 26px;
+}
+.biggest-2 {
+    font-size: 28px;
+}
+.normal {
+    font-size: 13px;
+}
+.small {
+    font-size: 12px;
+}
+
+@media only screen and (min-width: 800px) {
+    .jumbo {
+        font-size: 50px;
+    }
+}
