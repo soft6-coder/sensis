@@ -92,6 +92,7 @@ const getNftItemMeta = (nftItems) => {
             document.getElementById("spotlights-root").innerHTML +=
               bindSpotlights(item);
           });
+          loaded();
           getNftItemsCollection(TOPCOLLECTIONS2);
         }
       }
@@ -291,7 +292,7 @@ const getNftItemCollection3 = (nftItem) => {
             document.getElementById("trendingnft-root").innerHTML +=
               bindTrendingNft(item);
           });
-          loaded();
+          
         }
       }
     };
@@ -299,7 +300,7 @@ const getNftItemCollection3 = (nftItem) => {
 };
 
 function loaded() {
-  document.getElementById("loading").style.display = "none";
+  document.getElementById("loading-container").style.display = "none";
   document.getElementById("content").style.display = "block"
 }
 

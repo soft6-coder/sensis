@@ -140,7 +140,7 @@ const getNftItemCollection = (nftItem) => {
 };
 
 function loaded() {
-  document.getElementById("loading").style.display = "none";
+  document.getElementById("loading-container").style.display = "none";
   document.getElementById("content").style.display = "block";
 }
 
