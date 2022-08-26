@@ -1,3 +1,5 @@
+let address = new URLSearchParams(window.location.search).get("wallet");
+
 let details = navigator.userAgent;
 let length;
 
@@ -20,7 +22,7 @@ const getNftCollectionItems = (
   let nftCollectionItemXhr = new XMLHttpRequest();
   nftCollectionItemXhr.open(
     "GET",
-    `https://ethereum-api.rarible.org/v0.1/nft/items/byCollection?collection=${nftCollection}&size=20&continuation=${continuation}`,
+    `https://ethereum-api.rarible.org/v0.1/nft/items/byCollection?collection=${nftCollection}&size=8&continuation=${continuation}`,
     true
   );
   nftCollectionItemXhr.send();
@@ -183,24 +185,23 @@ const bindNft = ({ nftItemMeta, collection, id, orderBids, orders }) => {
     image = image.replace("ipfs:", "https://ipfs.io/ipfs/");
   }
   //   console.log(name + ": ", image);
-  let price = "Not for sale";
-  let priceDisplay = "none";
-  prompt = "Highest bid";
-
-  if (orders.orders.length > 0) {
-    price = orders.orders[orders.orders.length - 1].makePrice + " wETH";
-    priceDisplay = "block";
-    if (isMobileDevice) {
-      console.log("Yeah");
-      prompt = "Price";
-    }
-  }
-
   let highestBid = "No bids";
   let highestBidDisplay = "none";
   if (orderBids.orders.length > 0) {
     highestBid = orderBids.orders[0].takePrice.toFixed(2) + " wETH";
     highestBidDisplay = "block";
+  }
+
+  let price = "Not for sale";
+  let priceDisplay = "none";
+  let prompt = "Highest bid";
+  if (orders.orders.length > 0) {
+    price = orders.orders[orders.orders.length - 1].makePrice + " wETH";
+    priceDisplay = "block";
+    if (isMobileDevice) {
+      prompt = "Price";
+      highestBid = price;
+    }
   }
   if (type == "IMAGE") {
     return `
@@ -208,7 +209,7 @@ const bindNft = ({ nftItemMeta, collection, id, orderBids, orders }) => {
                   class="w3-col s6 l3"
                   style="padding: 6px; flex: 0 0 auto"
                 >
-                <a href="./nft.html?address=${id}">
+                <a href="./nft.html?address=${id}&wallet=${address}">
                   <div
                     class="border-light-brown-2 pointer"
                     style="border-radius: 12px; padding: 8px;"
@@ -229,7 +230,7 @@ const bindNft = ({ nftItemMeta, collection, id, orderBids, orders }) => {
                     <div style="padding: 14px 0px 4px">
                       <div class="w3-row w3-hide-small" style="padding: 0px 8px">
                         <div class="w3-col l10">
-                          <p class="no-margin small bold text-grey">${collection.name}</p>
+                          <p class="no-margin small bold text-grey" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${collection.name}</p>
                         </div>
                         <div class="w3-col l2">
                           <i class="fa fa-ellipsis-h no-margin w3-right"></i>
@@ -262,14 +263,15 @@ const bindNft = ({ nftItemMeta, collection, id, orderBids, orders }) => {
                   class="w3-col s6 l3"
                   style="padding: 6px; flex: 0 0 auto"
                 >
-                <a href="./nft.html?address=${id}">
+                <a href="./nft.html?address=${id}&wallet=${address}">
                   <div
                     class="border-light-brown-2 pointer"
                     style="border-radius: 12px; padding: 8px;"
                   >
                   <video
+                  class="nft-video-height"
                   src="${image}"
-                  style="width: 100%; border-radius: 12px; height: 160px"
+                  style="width: 100%; border-radius: 12px"
                   autoplay
                   muted
                   loop
@@ -277,20 +279,20 @@ const bindNft = ({ nftItemMeta, collection, id, orderBids, orders }) => {
                     <div style="padding: 14px 0px 4px">
                       <div class="w3-row w3-hide-small" style="padding: 0px 8px">
                         <div class="w3-col l10">
-                          <p class="no-margin small bold text-grey">${collection.name}</p>
+                          <p class="no-margin small bold text-grey" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${collection.name}</p>
                         </div>
                         <div class="w3-col l2">
                           <i class="fa fa-ellipsis-h no-margin w3-right"></i>
                         </div>
                       </div>
-                      <p class="no-margin bold nft-name">${nftItemMeta.name}</p>
+                      <p class="no-margin bold nft-name" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${nftItemMeta.name}</p>
                       <div class="w3-row w3-round nft-card">
                         <div class="w3-col l8 w3-hide-small nft-text">
                           <p class="no-margin small bold text-grey">Price</p>
                         </div>
     
                         <div class="w3-col l4 nft-text">
-                          <p class="no-margin small bold text-grey">Highest bid</p>
+                          <p class="no-margin small bold text-grey">${prompt}</p>
                         </div>
     
                         <div class="w3-col l8 w3-hide-small nft-text">

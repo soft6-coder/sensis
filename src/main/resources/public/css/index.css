@@ -28,7 +28,7 @@ a {
 }
 .nav {
   background: rgb(25, 28, 31) none repeat scroll 0% 0%;
-  padding: 24px 8px;
+  padding: 12px 0px;
 }
 .nav-2 {
   padding: 24px 8px;
@@ -54,6 +54,9 @@ a {
 .padding-2 {
   padding: 12px;
 }
+.padding-modal {
+  padding: 30px 0px;
+}
 .margin-top-spc {
   margin-top: 64px;
 }
@@ -72,12 +75,34 @@ a {
   background-color: transparent;
 }
 
+.buy-modal-style {
+  width: 100vw;
+}
+
+.buy-modal-content-style {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  bottom: 72px;
+}
+.buy-modal-content-style-2 {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  bottom: 72px;
+}
+
 .search2 {
   border: 1px solid rgb(51, 55, 59);
   color: rgb(233, 233, 233);
   font-size: 16px;
   background-color: rgb(34, 37, 40);
 }
+
+.search2:focus {
+  outline: 1px solid rgba(74, 77, 79, 0.425);
+  box-shadow: 1px 1px 5px rgb(74, 77, 79);
+  background-color: transparent;
+}
+
 .search::placeholder {
   color: rgb(128, 128, 128);
 }
@@ -137,11 +162,18 @@ a {
 .nft-height {
   height: 155px;
 }
+.nft-video-height {
+  height: 145px;
+}
 .width-sidebar {
   width: 100%;
 }
 .wallet-width {
   width: 100%;
+}
+.purchased-nft-image {
+  width: 88vw;
+  height: 88vw;
 }
 @media only screen and (min-width: 800px) {
   .wallet-width {
@@ -158,6 +190,10 @@ a {
   }
   .width-sidebar {
     width: 20%;
+  }
+
+  .buy-modal-style {
+    width: 25%;
   }
 
   .nft-card {
@@ -206,5 +242,24 @@ a {
   }
   .nft-height {
     height: 300px;
+  }
+  .nft-video-height {
+    height: 280px;
+  }
+  .buy-modal-content-style {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    left: 208px;
+    bottom: 30%;
+  }
+  .buy-modal-content-style-2 {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    left: 208px;
+    bottom: 0%;
+  }
+  .purchased-nft-image {
+    width: 70%;
+    height: 70%;
   }
 }

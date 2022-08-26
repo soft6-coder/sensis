@@ -9,6 +9,9 @@
   background-clip: text;
   color: transparent;
 }
+.background-brown-4 {
+  background-color: rgb(41, 44, 47);
+}
 .text-grey {
   color: rgb(192, 192, 192);
 }

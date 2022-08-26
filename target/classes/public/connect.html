@@ -19,106 +19,136 @@
     <link rel="stylesheet" href="./css/colors.css" />
   </head>
   <body>
-    <section>
-      <div class="w3-row nav w3-top" style="position: relative">
-        <div class="w3-col s4 l2">
-          <a href="/">
-            <div
-              class="background-purple w3-round-xlarge"
-              style="width: 40px; height: 40px; padding: 8px"
-            >
-              <img src="./images/logo.png" alt="" style="width: 100%" />
-            </div>
-          </a>
-        </div>
+    <div
+      id="loading-container"
+      style="
+        width: 100%;
+        position: absolute;
+        top: 45%;
+        display: flex;
+        justify-content: center;
+      "
+    >
+      <div
+        id="loading"
+        class="background-purple w3-round-xlarge"
+        style="width: 40px; height: 40px; padding: 8px; display: none"
+      >
+        <img src="./images/logo.png" alt="" style="width: 100%" />
       </div>
-    </section>
+    </div>
+    <div id="content">
+      <section>
+        <div class="w3-bar nav w3-top" style="position: relative">
+          <div class="w3-bar-item" style="padding: 0px 8px">
+            <a href="/">
+              <div
+                class="background-purple w3-round-xlarge"
+                style="width: 40px; height: 40px; padding: 8px"
+              >
+                <img src="./images/logo.png" alt="" style="width: 100%" />
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
 
-    <section>
-      <div class="padding-2">
-        <div class="wallet-width">
-          <p class="jumbo">Connect Wallet</p>
-          <p class="bold text-grey-2">
-            Choose how you want to connect. There are several wallet providers.
-          </p>
+      <section>
+        <div class="padding-2">
+          <div class="wallet-width">
+            <p class="jumbo">Connect Wallet</p>
+            <p class="bold text-grey-2">
+              Choose how you want to connect. There are several wallet
+              providers.
+            </p>
 
-          <div>
-            <p class="small bold text-grey-2 no-margin-2">Recent</p>
-            <div
-            
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img src="./images/metamask.svg" alt="" style="width: 70%" />
+            <div>
+              <p class="small bold text-grey-2 no-margin-2">Recent</p>
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img src="./images/metamask.svg" alt="" style="width: 70%" />
+                </div>
+                <div class="w3-col s10" style="margin-top: 12px">
+                  <p id="connect-metamask" class="no-margin bold pointer">
+                    Metamask
+                  </p>
+                </div>
               </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-metamask" class="no-margin bold pointer">Metamask</p>
+              <p class="small bold text-grey-2 no-margin-2">Popular</p>
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img
+                    src="./images/walletconnect.svg"
+                    alt=""
+                    style="width: 60%"
+                  />
+                </div>
+                <div class="w3-col s10" style="margin-top: 10px">
+                  <p id="connect-walletconnect" class="no-margin bold pointer">
+                    WalletConnect
+                  </p>
+                </div>
               </div>
-            </div>
-            <p class="small bold text-grey-2 no-margin-2">Popular</p>
-            <div
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img
-                  src="./images/walletconnect.svg"
-                  alt=""
-                  style="width: 75%"
-                />
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img src="./images/coinbase.svg" alt="" style="width: 75%" />
+                </div>
+                <div class="w3-col s10" style="margin-top: 12px">
+                  <p id="connect-coinbase" class="no-margin bold pointer">
+                    Coinbase Wallet
+                  </p>
+                </div>
               </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-walletconnect" class="no-margin bold pointer">WalletConnect</p>
+              <p class="small bold text-grey-2 no-margin-2">More</p>
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img src="./images/torus.svg" alt="" style="width: 75%" />
+                </div>
+                <div class="w3-col s10" style="margin-top: 12px">
+                  <p id="connect-torus" class="no-margin bold pointer">Torus</p>
+                </div>
               </div>
-            </div>
-            <div
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img src="./images/coinbase.svg" alt="" style="width: 75%" />
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img src="./images/portis.svg" alt="" style="width: 75%" />
+                </div>
+                <div class="w3-col s10" style="margin-top: 12px">
+                  <p id="connect-portis" class="no-margin bold pointer">
+                    Portis
+                  </p>
+                </div>
               </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-coinbase" class="no-margin bold pointer">Coinbase Wallet</p>
-              </div>
-            </div>
-            <p class="small bold text-grey-2 no-margin-2">More</p>
-            <div
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img src="./images/torus.svg" alt="" style="width: 75%" />
-              </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-torus" class="no-margin bold pointer">Torus</p>
-              </div>
-            </div>
-            <div
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img src="./images/portis.svg" alt="" style="width: 75%" />
-              </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-portis" class="no-margin bold pointer">Portis</p>
-              </div>
-            </div>
-            <div
-              class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
-            >
-              <div class="w3-col s2">
-                <img
-                  src="./images/myetherwallet.svg"
-                  alt=""
-                  style="width: 75%"
-                />
-              </div>
-              <div class="w3-col s10" style="margin-top: 12px">
-                <p id="connect-myetherwallet" class="no-margin bold pointer">MyEtherWallet</p>
+              <div
+                class="w3-round-xlarge border-light-brown-2 w3-row w3-padding-small w3-margin-bottom w3-margin-top"
+              >
+                <div class="w3-col s2">
+                  <img
+                    src="./images/myetherwallet.svg"
+                    alt=""
+                    style="width: 75%"
+                  />
+                </div>
+                <div class="w3-col s10" style="margin-top: 12px">
+                  <p id="connect-myetherwallet" class="no-margin bold pointer">
+                    MyEtherWallet
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="./js/ERC20.js"></script>

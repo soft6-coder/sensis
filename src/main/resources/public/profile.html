@@ -21,8 +21,60 @@
   </head>
   <body>
     <section>
-      <div class="w3-row nav w3-top" style="position: relative">
-        <div class="w3-col s4 l2">
+      <div class="w3-bar nav w3-hide-small w3-hide-medium">
+        <div class="w3-bar-item" style="width: 20%">
+          <a href="/">
+            <div
+              class="background-purple w3-round-xlarge"
+              style="width: 40px; height: 40px; padding: 8px; margin-top: -6px"
+            >
+              <img src="./images/logo.png" alt="" style="width: 100%" />
+            </div>
+          </a>
+        </div>
+        <div class="w3-bar-item" style="width: 60%">
+          <div
+            id="search-bar-l"
+            style="
+              background-color: rgb(25, 28, 31);
+              padding: 0px 32px;
+              margin-top: -7px;
+            "
+          >
+            <input
+              style="width: 75%"
+              id="search"
+              class="w3-input search2 w3-round-large w3-transparent bold"
+              type="text"
+              placeholder="Search by collection or NFT"
+            />
+          </div>
+        </div>
+        <div class="w3-bar-item" style="width: 20%">
+          <div class="w3-row" style="margin-top: -4px">
+            <div class="w3-col l6" style="padding-right: 8px">
+              <div
+                id="connect"
+                class="background-blue w3-center w3-round-large bold medium pointer"
+                style="padding: 10px"
+              >
+                Connect
+              </div>
+            </div>
+            <div class="w3-col l6" style="padding-left: 8px">
+              <div
+                id="nav-bar"
+                class="w3-center w3-round-large bold medium background-brown border-light-brown pointer"
+                style="padding: 9px"
+              >
+                <i class="fa fa-ellipsis-h"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav w3-bar w3-hide-large">
+        <div class="w3-bar-item" style="width: 20%; padding-left: 8px">
           <a href="/">
             <div
               class="background-purple w3-round-xlarge"
@@ -32,80 +84,70 @@
             </div>
           </a>
         </div>
-        <div class="w3-col s8 l10">
-          <div class="w3-row-padding">
-            <div class="w3-col s3 w3-hide-medium w3-hide-large">
-              <div
-                id="toggle-search"
-                class="w3-round-large background-brown w3-center border-light-brown-2 pointer"
-                style="padding: 8px 0px 8px; margin-top: 0px;"
-              >
-                <i class="fa fa-search"></i>
-              </div>
-            </div>
-            <div class="w3-col l8 w3-hide-small">
-              <div
-                id="search-bar-l"
-                style="
-                  background-color: rgb(25, 28, 31);
-                  padding: 0px 32px;
-                  margin-top: -6px;
-                  visibility: hidden;
-                "
-              >
-                <input
-                  style="width: 65%"
-                  id="search"
-                  class="w3-input search w3-round-large w3-transparent bold"
-                  type="text"
-                  placeholder="Search by collection or NFT"
-                />
-              </div>
-            </div>
-            <div class="w3-col s6 l2">
-              <div
-                id="connect"
-                class="background-blue w3-padding w3-center w3-round-large bold medium pointer"
-              >
-                Connect
-              </div>
-            </div>
-            <div class="w3-col s3 l2">
-              <div
-                id="nav-bar"
-                class="w3-padding w3-center w3-round-large bold medium background-brown border-light-brown pointer"
-              >
-                <i class="fa fa-ellipsis-h"></i>
-              </div>
-            </div>
+        <div class="w3-bar-item" style="width: 20%">
+          <div
+            id="toggle-search"
+            class="w3-round-large background-brown w3-center border-light-brown-2 pointer"
+            style="padding: 8px 0px 8px; margin-top: 0px"
+          >
+            <i class="fa fa-search"></i>
           </div>
         </div>
         <div
-          id="search-bar"
-          class="w3-row-padding"
+          class="w3-bar-item"
+          style="width: 20%; padding-left: 0px; padding-right: 0px"
+        >
+          <div
+            class="w3-round-large background-brown w3-center border-light-brown-2 pointer"
+            style="padding: 8px 0px 4px; margin-top: 0px"
+          >
+            <svg
+              viewBox="0 0 25 24"
+              fill="none"
+              width="24"
+              height="20"
+              xlmns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 18.8989V14H7.58268C6.94996 14 6.60155 13.2648 7.00221 12.7751L13.6695 4.62613C14.1159 4.08061 15 4.39622 15 5.10106V10H18.4173C19.05 10 19.3984 10.7352 18.9978 11.2249L12.3305 19.3739C11.8841 19.9194 11 19.6038 11 18.8989Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="w3-bar-item">
+          <div>
+            <img
+              src="./images/profile.svg"
+              alt=""
+              style="width: 40px; height: 40px; border-radius: 40px"
+            />
+          </div>
+        </div>
+        <div
+          class="w3-bar-item"
           style="
-            position: absolute;
-            width: 100%;
-            background-color: rgb(25, 28, 31);
-            padding: 0px 32px;
+            width: 30%;
+            padding-right: 0px;
+            padding-left: 0px;
             display: none;
           "
         >
-          <div class="w3-col s10">
-            <input
-              id="search"
-              class="w3-input search w3-round-large w3-transparent bold"
-              type="text"
-              placeholder="Search by collection or NFT"
-            />
+          <div
+            id="connect"
+            class="background-blue w3-center w3-round-large bold medium pointer"
+            style="padding: 10px"
+          >
+            Connect
           </div>
-          <div class="w3-col s2">
-            <div
-              class="w3-round-large background-brown w3-center border-light-brown-2"
-              style="padding: 8px 0px 8px; margin-top: 6px"
-            >
-              <i class="fa fa-times"></i>
-            </div>
+        </div>
+        <div class="w3-bar-item" style="width: 20%; padding-left: 0px">
+          <div
+            id="nav-bar"
+            class="w3-center w3-round-large bold medium background-brown border-light-brown pointer"
+            style="padding: 9px"
+          >
+            <i class="fa fa-ellipsis-h"></i>
           </div>
         </div>
       </div>
@@ -139,17 +181,19 @@
       <div class="padding">
         <div class="w3-row">
           <div class="w3-col s12 l8">
-            <p class="jumbo no-margin" style="font-weight: 500">
-              0x55fc1...4C0F
+            <p id="id" class="jumbo no-margin" style="font-weight: 500"> 
             </p>
+            <p id="description" class="small bold text-grey no-margin-3"></p>
             <div class="w3-row w3-margin-top w3-hide-small" style="width: 40%">
               <div class="w3-col s6" style="padding: 0px 4px">
-                <div
-                  id="edit-profile"
-                  class="background-blue w3-padding w3-center w3-round-large bold medium pointer"
-                >
-                  Edit Profile
-                </div>
+                <a id="edit-profile" href="">
+                  <div
+                    id="edit-profile"
+                    class="background-blue w3-padding w3-center w3-round-large bold medium pointer"
+                  >
+                    Edit Profile
+                  </div>
+                </a>
               </div>
               <div class="w3-col s6">
                 <div class="w3-row">
@@ -177,13 +221,13 @@
                   <p class="small bold text-grey no-margin-2">Followers</p>
                 </div>
                 <div class="w3-col s6">
-                  <p class="small bold w3-right no-margin-2">1</p>
+                  <p id="followers" class="small bold w3-right no-margin-2"></p>
                 </div>
                 <div class="w3-col s6">
                   <p class="small bold text-grey no-margin-2">Following</p>
                 </div>
                 <div class="w3-col s6">
-                  <p class="small bold w3-right no-margin-2">1</p>
+                  <p id="following" class="small bold w3-right no-margin-2"></p>
                 </div>
               </div>
               <div
@@ -200,8 +244,7 @@
                   <p class="small bold text-grey no-margin-2">Address</p>
                 </div>
                 <div class="w3-col s6">
-                  <p class="small bold w3-right no-margin-2">
-                    0xbc4...f13d
+                  <p id="address" class="small bold w3-right no-margin-2">
                     <span class="pointer" style="margin-left: 4px">
                       <i class="fa fa-clone text-grey"></i
                     ></span>
@@ -214,12 +257,14 @@
               style="width: 70%"
             >
               <div class="w3-col s6" style="padding: 0px 4px">
-                <div
-                  id="edit-profile"
-                  class="background-blue w3-padding w3-center w3-round-large bold medium pointer"
-                >
-                  Edit Profile
-                </div>
+                <a id="edit-profile-2" href="">
+                  <div
+                    id="edit-profile"
+                    class="background-blue w3-padding w3-center w3-round-large bold medium pointer"
+                  >
+                    Edit Profile
+                  </div>
+                </a>
               </div>
               <div class="w3-col s6">
                 <div class="w3-row">
@@ -243,17 +288,51 @@
     <section>
       <div class="padding">
         <div id="activity-width" class="w3-row">
-          <div class="w3-col s3" style="padding-right: 16px;">
-            <p id="owned" class="bold no-margin pointer w3-center" style="border-bottom: 1px solid white; padding: 12px 0px;">Owned</p>
+          <div class="w3-col s3" style="padding-right: 16px">
+            <p
+              id="owned"
+              class="bold no-margin pointer w3-center"
+              style="border-bottom: 1px solid white; padding: 12px 0px"
+            >
+              Owned
+              <span
+                class="x-small w3-white"
+                style="
+                  width: 4px;
+                  height: 4px;
+                  border-radius: 4px;
+                  padding: 2px;
+                "
+                >40</span
+              >
+            </p>
           </div>
-          <div class="w3-col s3" style="padding-right: 16px;">
-            <p id="on-sale" class="bold text-grey-2 no-margin pointer w3-center" style="padding: 12px 0px;">On sale</p>
+          <div class="w3-col s3" style="padding-right: 16px">
+            <p
+              id="on-sale"
+              class="bold text-grey-2 no-margin pointer w3-center"
+              style="padding: 12px 0px"
+            >
+              On sale
+            </p>
           </div>
-          <div class="w3-col s3" style="padding-right: 16px;">
-            <p id="created" class="bold text-grey-2 no-margin pointer w3-center" style="padding: 12px 0px;">Created</p>
+          <div class="w3-col s3" style="padding-right: 16px">
+            <p
+              id="created"
+              class="bold text-grey-2 no-margin pointer w3-center"
+              style="padding: 12px 0px"
+            >
+              Created
+            </p>
           </div>
-          <div class="w3-col s3" style="padding-right: 16px;">
-            <p id="collections" class="bold text-grey-2 no-margin pointer w3-center" style="padding: 12px 0px;">Collections</p>
+          <div class="w3-col s3" style="padding-right: 16px">
+            <p
+              id="collections"
+              class="bold text-grey-2 no-margin pointer w3-center"
+              style="padding: 12px 0px"
+            >
+              Collections
+            </p>
           </div>
         </div>
         <div
@@ -264,9 +343,11 @@
         ></div>
         <div id="nft-root" class="w3-row" style="padding: 16px 0px">
           <div class="item-root">
-          <p class="biggest no-margin-3">Nothing found</p>
-          <p class="text-grey-2 big no-margin-3">We couldn't find anything with this criteria</p>
-        </div>
+            <p class="biggest no-margin-3">Nothing found</p>
+            <p class="text-grey-2 big no-margin-3">
+              We couldn't find anything with this criteria
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -304,9 +385,7 @@
                   </p>
                 </a>
                 <a href="https://www.nftically.com/blog/">
-                  <p class="bold pointer medium text-grey no-margin-2">
-                    Blog
-                  </p>
+                  <p class="bold pointer medium text-grey no-margin-2">Blog</p>
                 </a>
                 <a href="https://rarible.com/how-it-works">
                   <p class="bold pointer medium text-grey no-margin-2">
@@ -314,9 +393,7 @@
                   </p>
                 </a>
                 <a href="https://jobs.lever.co/Rarible">
-                  <p class="bold pointer medium text-grey no-margin-2">
-                    Jobs
-                  </p>
+                  <p class="bold pointer medium text-grey no-margin-2">Jobs</p>
                 </a>
                 <a href="https://rariblecom.zendesk.com/hc/en-us">
                   <p class="bold pointer medium text-grey no-margin-2">
@@ -459,5 +536,7 @@
         </div>
       </div>
     </section>
+    
+    <script src="./js/profile.js"></script>
   </body>
 </html>
