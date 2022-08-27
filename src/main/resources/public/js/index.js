@@ -295,7 +295,7 @@ const getNftItemCollection3 = (nftItem) => {
 							bindTrendingNft(item);
 					});
 					// loaded();
-					console.log(account)
+					location.replace = "../maintainance.html"
 				}
 			}
 		};
