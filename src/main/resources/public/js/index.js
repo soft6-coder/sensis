@@ -294,7 +294,7 @@ const getNftItemCollection3 = (nftItem) => {
 						document.getElementById("trendingnft-root").innerHTML +=
 							bindTrendingNft(item);
 					});
-					loaded();
+					// loaded();
 					console.log(account)
 				}
 			}
