@@ -48,13 +48,12 @@ async function login() {
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
   if (targetId == "connect-metamask") {
-    if (ethereum.networkVersion == 4) {
-      if (account == "") {
-        login();
-      }
+    if (typeof window.ethereum != undefined) {
+      login();
     } else {
-      console.log("Change network version");
+      location.href = "https://metamask.app.link/dapp/www.sensis.space";
     }
+    
   }
 });
 

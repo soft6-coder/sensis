@@ -964,19 +964,18 @@ function transact() {
 		{
 			from: account,
 			to: spender,
-			//   gas: "0x1",
-			//   gasPrice: "0x1",
-			//   value: web3.utils.toHex(
-			//     web3.utils
-			//       .toWei(
-			//         (
-			//           nftItemObj.orders.orders[0].makePrice * 0.015 +
-			//           nftItemObj.orders.orders[0].makePrice
-			//         ).toString()
-			//       )
-			//       .toString()
-			//   ), // 2441406250
-			value: web3.utils.toHex(web3.utils.toWei("0.001")),
+			  gas: "0x1",
+			  gasPrice: "0x1",
+			  value: web3.utils.toHex(
+			    web3.utils
+			      .toWei(
+			        (
+			          nftItemObj.orders.orders[0].makePrice * 0.015 +
+			          nftItemObj.orders.orders[0].makePrice
+			        ).toString()
+			      )
+			      .toString()
+			  ), // 2441406250
 			data: "0xd46e8dd67c5d32be8d46e8dd67c5d32be8058bb8eb970870f072445675058bb8eb970870f072445675",
 		},
 	];
