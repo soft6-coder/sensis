@@ -42,7 +42,7 @@ async function login() {
     });
   account = accounts[0];
   getEthBalance();
-  getTokenBalance(tokens[0]);
+  getTokenBalance(tokens[1]);
 }
 
 document.body.addEventListener("click", function (e) {

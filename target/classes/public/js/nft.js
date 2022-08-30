@@ -44,7 +44,7 @@ async function login() {
 
 		});
 	getEthBalance();
-	getTokenBalance(tokens[0]);
+	getTokenBalance(tokens[1]);
 }
 
 async function getTokenBalance(token) {
