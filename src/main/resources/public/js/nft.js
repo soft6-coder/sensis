@@ -196,6 +196,8 @@ if (isMobileDevice) {
 
 let nftItemObj;
 
+
+
 function getNftOwner() {
 	let nftOwnerXhr = new XMLHttpRequest();
 	nftOwnerXhr.open("GET", `/nft/${address}`, true);

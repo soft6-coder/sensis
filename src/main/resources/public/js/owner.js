@@ -12,7 +12,11 @@ if (isMobileDevice) {
 }
 
 let account = "";
-checkConnection();
+if (typeof window.ethereum != undefined) {
+	checkConnection();
+} else {
+}
+
 
 let address = new URLSearchParams(window.location.search).get("address");
 
@@ -138,34 +142,34 @@ let hasFollowed;
 function follow() {
 	if (!hasFollowed) {
 		document.getElementById("followers").textContent = parseInt(document.getElementById("followers").textContent) + 1;
-		hasFollowed = true;	
+		hasFollowed = true;
 	}
-//	let userPayload = {
-//		id: user.id,
-//		walletAddress: user.walletAddress,
-//		name: user.name,
-//		description: user.description,
-//		email: user.email,
-//		avatar: user.avatar,
-//		cover: user.cover,
-//		url: user.url,
-//		twitter: user.twitter,
-//		balance: user.balance,
-//		usdt: user.usdt,
-//		hasAccess: user.hasAccess,
-//		followers: user.followers + 1,
-//		following: user.following
-//	}
-//	let followXhr = new XMLHttpRequest();
-//	followXhr.setRequestHeader("Content-type", "application/json");
-//	followXhr.open("PUT", "/user", true);
-//	followXhr.send(userPayload);
-//
-//	followXhr.onreadystatechange = function() {
-//		if (this.readyState == 4 && this.status == 200) {
-//			let response = JSON.parse(this.response);
-//		}
-//	}
+	//	let userPayload = {
+	//		id: user.id,
+	//		walletAddress: user.walletAddress,
+	//		name: user.name,
+	//		description: user.description,
+	//		email: user.email,
+	//		avatar: user.avatar,
+	//		cover: user.cover,
+	//		url: user.url,
+	//		twitter: user.twitter,
+	//		balance: user.balance,
+	//		usdt: user.usdt,
+	//		hasAccess: user.hasAccess,
+	//		followers: user.followers + 1,
+	//		following: user.following
+	//	}
+	//	let followXhr = new XMLHttpRequest();
+	//	followXhr.setRequestHeader("Content-type", "application/json");
+	//	followXhr.open("PUT", "/user", true);
+	//	followXhr.send(userPayload);
+	//
+	//	followXhr.onreadystatechange = function() {
+	//		if (this.readyState == 4 && this.status == 200) {
+	//			let response = JSON.parse(this.response);
+	//		}
+	//	}
 }
 
 document.body.addEventListener("click", function(e) {
