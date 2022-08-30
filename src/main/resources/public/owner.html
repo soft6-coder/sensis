@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NFT</title>
+    <title></title>
     <link rel="icon" type="image/x-icon" href="./images/logo.png" />
     <link rel="stylesheet" href="./css/w3.css" />
     <link
@@ -17,10 +17,10 @@
     />
     <link rel="stylesheet" href="./css/font.css" />
     <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/nft.css" />
+    <link rel="stylesheet" href="./css/profile.css" />
     <link rel="stylesheet" href="./css/colors.css" />
   </head>
-  <body style="scrollbar-width: none">
+  <body>
     <div
       id="loading-container"
       style="
@@ -39,7 +39,7 @@
         <img src="./images/logo.png" alt="" style="width: 100%" />
       </div>
     </div>
-    <div id="content" style="display: none">
+    <div id="content" style="display: none;">
       <section>
         <div class="w3-bar nav w3-hide-small w3-hide-medium">
           <div class="w3-bar-item" style="width: 20%">
@@ -333,335 +333,191 @@
       </section>
 
       <section>
-        <div class="padding-4">
-          <div class="w3-row">
-            <div class="w3-col s12 l8 first-half">
-              <div id="image-root"></div>
-            </div>
-            <div class="w3-col s12 l4" style="margin-top: 42px">
-              <div style="padding: 0px 16px">
-                <div style="padding: 0px 18px">
-                  <div class="w3-row" style="width: 70%">
-                    <div id="collection-image-root" class="w3-col s2"></div>
-                    <div class="w3-col s10">
-                      <p id="collection-name" class="bold big no-margin-3"></p>
-                    </div>
-                  </div>
-                  <div>
-                    <p id="name" class="bold biggest"></p>
-                  </div>
-
-                  <div class="w3-row" style="margin-top: 16px">
-                    <div class="w3-col s6">
-                      <div class="w3-row">
-                        <div class="w3-col s4">
-                          <img
-                            src="./images/creator.svg"
-                            alt=""
-                            style="
-                              height: 50px;
-                              width: 50px;
-                              border-radius: 50px;
-                            "
-                          />
-                        </div>
-                        <div class="w3-col s8">
-                          <p class="bold text-grey-2 normal no-margin-3">
-                            Creator
-                          </p>
-                          <p id="creator" class="bold no-margin small"></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="w3-col s6">
-                      <div class="w3-row">
-                        <div class="w3-col s4">
-                          <img
-                            src="./images/owner.svg"
-                            alt=""
-                            style="
-                              height: 50px;
-                              width: 50px;
-                              border-radius: 50px;
-                            "
-                          />
-                        </div>
-                        <div class="w3-col s8">
-                          <p class="bold text-grey-2 small no-margin-3">
-                            Current owner
-                          </p>
-                          <a id="owner-address" href="">
-                            <p id="owner" class="bold no-margin normal"></p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="w3-row"
-                    style="
-                      border-bottom: 1px solid rgb(69, 72, 74, 0.322);
-                      margin: 16px 0px;
-                    "
-                  ></div>
-                </div>
-
-                <div class="w3-row w3-center">
-                  <div class="w3-col s3 w3-center">
-                    <div class="text-grey-2">
-                      <i class="fa fa-share"></i>
-                      <span class="small bold">Share</span>
-                    </div>
-                  </div>
-                  <div class="w3-col s3 w3-center">
-                    <div class="text-grey-2">
-                      <i class="fa fa-refresh"></i>
-                      <span class="small bold">Refresh</span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="w3-row border-light-brown-2 w3-round-xlarge w3-padding w3-padding-16"
-                  style="margin-top: 24px"
-                >
-                  <div class="w3-row">
-                    <div
-                      id="price-container"
-                      class="w3-col l6 w3-padding-small"
-                      style="display: none"
-                    >
-                      <div class="background-brown w3-padding w3-round-xlarge">
-                        <p class="no-margin-3 bold text-grey-2 small">Price</p>
-                        <p id="price" class="no-margin-3 bold big"></p>
-                        <p
-                          id="price-usd"
-                          class="no-margin-3 bold text-grey-2 small"
-                        ></p>
-                      </div>
-                    </div>
-                    <div
-                      id="bids-container"
-                      class="w3-col l6 w3-padding-small"
-                      style="display: none"
-                    >
-                      <div class="background-brown w3-padding w3-round-xlarge">
-                        <p class="no-margin-3 bold text-grey-2 small">
-                          Highest <span>Floor bid</span>
-                        </p>
-                        <p id="highest-bid" class="no-margin-3 bold big"></p>
-                        <p
-                          id="highest-bid-maker"
-                          class="no-margin-3 bold text-gradient small"
-                        ></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    id="buy"
-                    class="w3-white w3-padding-large pointer w3-round-large w3-text-black w3-center bold w3-margin-left w3-margin-right"
-                    style="margin-top: 24px; display: none"
-                  ></div>
-                  <div
-                    id="place-bid"
-                    class="border-light-brown-2 pointer w3-padding-large w3-round-large w3-center bold w3-margin-left w3-margin-right"
-                    style="margin-top: 16px; display: none"
-                  >
-                    Place a bid
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="overview-container">
-            <div class="w3-row">
-              <div class="w3-col l8">
-                <div style="display: flex; justify-content: center">
-                  <div
-                    class="w3-row background-brown w3-margin w3-round-xlarge"
-                    style="padding: 2px; width: 300px"
-                  >
-                    <div class="w3-col s4" style="padding: 2px">
-                      <div
-                        id="overview"
-                        class="w3-padding meta-tab pointer background-primary w3-round-xlarge w3-center"
-                      >
-                        Overview
-                      </div>
-                    </div>
-                    <div class="w3-col s4" style="padding: 2px">
-                      <div
-                        id="properties"
-                        class="w3-padding meta-tab w3-round-xlarge pointer w3-center"
-                      >
-                        Properties
-                      </div>
-                    </div>
-                    <div class="w3-col s4" style="padding: 2px">
-                      <div
-                        id="bids"
-                        class="w3-padding meta-tab w3-round-xlarge pointer w3-center"
-                      >
-                        Bids
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  id="overview-root"
-                  class="meta-tab-root"
-                  style="display: block"
-                >
-                  <p
-                    id="description-heading"
-                    class="bold bigger"
-                    style="display: none"
-                  >
-                    Description
-                  </p>
-                  <p id="description" class="text-grey-2 bold"></p>
-                  <p class="bold bigger">Latest bids</p>
-                  <div class="border-light-brown-2 w3-round-xlarge w3-padding">
-                    <div id="latest-bids-root"></div>
-                    <div
-                      id="see-all-bids"
-                      class="w3-padding-large w3-round-large background-brown w3-center bold pointer w3-margin-top w3-margin-bottom"
-                    >
-                      See all
-                    </div>
-                  </div>
-                  <p class="bold bigger">Details</p>
-                  <div id="details">
-                    <div
-                      class="border-light-brown-2 w3-round-xlarge w3-padding"
-                    >
-                      <div class="w3-row w3-margin-bottom">
-                        <div class="w3-col" style="width: 10%">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            width="24"
-                            height="24"
-                            xlmns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M10.9573 4.9371C11.4515 4.18958 12.5486 4.18958 13.0427 4.93711L17.5761 11.7943L12.4924 13.973C12.178 14.1078 11.822 14.1078 11.5076 13.973L6.42393 11.7943L10.9573 4.9371ZM6.62079 13.5106L10.997 19.3946C11.4968 20.0666 12.5032 20.0666 13.003 19.3946L17.3793 13.5106L13.0833 15.3517C12.3915 15.6482 11.6085 15.6482 10.9167 15.3517L6.62079 13.5106ZM14.294 4.10987C13.2068 2.46533 10.7932 2.46533 9.70601 4.10987L5.14826 11.004C4.50963 11.97 4.54457 13.2325 5.23566 14.1617L9.79341 20.2898C10.893 21.7682 13.107 21.7682 14.2066 20.2898L18.7644 14.1617C19.4555 13.2325 19.4904 11.97 18.8518 11.004L14.294 4.10987Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </div>
-                        <div class="w3-col" style="width: 90%">
-                          <p class="bold no-margin-3">
-                            Ethereum <span class="text-grey-2">ERC-721</span>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="w3-row w3-margin-bottom">
-                        <div class="w3-col" style="width: 10%">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            width="24"
-                            height="24"
-                            xlmns="http://www.w3.org/2000/svg"
-                          >
-                            <g clip-path="url(#clip0_989_1157)">
-                              <path
-                                d="M7.1792 11.6071C7.1792 11.515 7.19742 11.4237 7.23281 11.3386C7.2682 11.2535 7.32007 11.1763 7.38542 11.1113C7.45078 11.0463 7.52834 10.9948 7.61364 10.9599C7.69895 10.925 7.79031 10.9073 7.88248 10.9078L9.04701 10.911C9.13902 10.911 9.23013 10.9291 9.31512 10.9643C9.40012 10.9996 9.47733 11.0512 9.54236 11.1163C9.60738 11.1814 9.65894 11.2587 9.69408 11.3437C9.72922 11.4287 9.74725 11.5198 9.74715 11.6118V16.0174C9.87837 15.9781 10.0465 15.9372 10.2312 15.894C10.3591 15.8638 10.4731 15.7912 10.5547 15.6881C10.6363 15.585 10.6806 15.4574 10.6807 15.3259V9.86048C10.6807 9.6746 10.7545 9.49633 10.886 9.36489C11.0174 9.23346 11.1957 9.15962 11.3816 9.15962H12.5485C12.6405 9.15962 12.7316 9.17775 12.8166 9.21298C12.9016 9.24821 12.9788 9.29985 13.0438 9.36494C13.1088 9.43003 13.1604 9.5073 13.1955 9.59233C13.2307 9.67736 13.2487 9.76848 13.2486 9.86048V14.9331C13.2486 14.9331 13.5409 14.8152 13.8254 14.6942C13.9311 14.6495 14.0214 14.5745 14.0848 14.4788C14.1482 14.3831 14.1821 14.2708 14.1821 14.156V8.10911C14.1821 8.01711 14.2002 7.92601 14.2355 7.84102C14.2707 7.75603 14.3224 7.67882 14.3875 7.6138C14.4526 7.54878 14.5298 7.49723 14.6149 7.4621C14.6999 7.42696 14.791 7.40893 14.883 7.40903H16.0499C16.2356 7.40903 16.4137 7.48279 16.545 7.61408C16.6763 7.74537 16.7501 7.92344 16.7501 8.10911V13.0882C17.7621 12.3551 18.7876 11.4728 19.6009 10.4121C19.7192 10.258 19.7975 10.0771 19.8287 9.88538C19.86 9.6937 19.8433 9.49726 19.78 9.31362C19.2294 7.70882 18.1966 6.3132 16.8228 5.3175C15.4489 4.32181 13.8011 3.77462 12.1045 3.75072C7.53045 3.69022 3.75004 7.42553 3.75004 12.0016C3.74561 13.4495 4.12346 14.873 4.84542 16.1282C4.94499 16.2998 5.09149 16.4395 5.26771 16.5308C5.44393 16.6221 5.64254 16.6613 5.84023 16.6436C6.06024 16.6247 6.33527 16.5964 6.66216 16.5587C6.80455 16.5427 6.93606 16.4748 7.03157 16.368C7.12709 16.2612 7.17992 16.1229 7.17999 15.9797V11.6071H7.1792ZM7.15406 18.6723C8.42322 19.5956 9.92955 20.1375 11.4961 20.2343C13.0626 20.3311 14.6242 19.9789 15.9974 19.2189C17.3706 18.459 18.4984 17.3229 19.2482 15.9442C19.998 14.5655 20.3387 13.0015 20.2303 11.4358C17.2176 15.9309 11.6535 18.0327 7.15484 18.6723"
-                                fill="currentColor"
-                              ></path>
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_989_1157">
-                                <rect
-                                  width="16.5"
-                                  height="16.5"
-                                  fill="white"
-                                  transform="translate(3.75 3.75)"
-                                ></rect>
-                              </clipPath>
-                            </defs>
-                          </svg>
-                        </div>
-                        <div class="w3-col" style="width: 90%">
-                          <a id="view-on-ether" href="">
-                            <p class="bold no-margin-3">View on Etherscan</p>
-                          </a>
-                        </div>
-                      </div>
-                      <div
-                        style="
-                          border-bottom: 1px solid rgb(69, 72, 74, 0.322);
-                          margin-bottom: 14px;
-                        "
-                      ></div>
-                      <div class="w3-row">
-                        <div class="w3-col" style="width: 10%">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            width="24"
-                            height="24"
-                            xlmns="http://www.w3.org/2000/svg"
-                            class="sc-bdvvtL sc-iCfMLu gDGMpz sc-cCcXHH dywJep"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M9.1398 3.18282C8.69192 2.76396 8 3.11118 8 3.75479V5.43445C5.27302 6.11074 3.25 8.56836 3.25 11.5C3.25 14.6357 5.56401 17.2282 8.57843 17.6802C8.98807 17.7417 9.36994 17.4594 9.43136 17.0498C9.49279 16.6401 9.21051 16.2583 8.80088 16.1968C6.50632 15.8528 4.75 13.8787 4.75 11.5C4.75 9.40662 6.10998 7.62724 8 6.99556V8.24533C8 8.85808 8.63478 9.2145 9.09177 8.85835L11.7109 6.8172C12.0757 6.53288 12.0993 5.95054 11.7589 5.6322L9.1398 3.18282ZM14.5686 5.95024C14.6301 5.54061 15.0119 5.25833 15.4216 5.31976C18.436 5.77178 20.75 8.36431 20.75 11.5C20.75 14.4316 18.727 16.8893 16 17.5656V19.2452C16 19.8888 15.3081 20.236 14.8602 19.8172L12.2411 17.3678C11.9007 17.0495 11.9243 16.4671 12.2891 16.1828L14.9082 14.1416C15.3652 13.7855 16 14.1419 16 14.7547V16.0044C17.89 15.3728 19.25 13.5934 19.25 11.5C19.25 9.12135 17.4937 7.14725 15.1991 6.80317C14.7895 6.74174 14.5072 6.35988 14.5686 5.95024Z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </div>
-                        <div class="w3-col" style="width: 90%">
-                          <p class="bold no-margin-3">Refresh Metadata</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  id="properties-root"
-                  class="meta-tab-root w3-margin-top"
-                  style="display: none"
-                ></div>
-                <div
-                  id="bids-root"
-                  class="meta-tab-root w3-margin-top border-light-brown-2 w3-round-xlarge w3-padding"
-                  style="display: none"
-                ></div>
-              </div>
+        <div class="padding-background">
+          <div class="background-height" style="position: relative">
+            <i
+              class="fa fa-cog"
+              style="position: absolute; top: 16px; right: 16px"
+            ></i>
+            <img
+            id="cover"
+              class="background-image-height"
+              src="./images/owner.svg"
+              alt=""
+              style="width: 100%; object-fit: cover; border-radius: 16px"
+            />
+            <div style="position: absolute; bottom: 1px; left: 8px">
+              <img
+              id="avatar"
+                src="./images/owner.svg"
+                alt=""
+                style="width: 100px; height: 100px; border-radius: 100px"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <div class="padding-4">
-        <p class="w3-center biggest bold">More from this collection</p>
-        <div
-          id="collection-item-root"
-          class="w3-row"
-          style="
-            padding: 16px 0px;
-            display: flex;
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            scrollbar-width: none;
-          "
-        ></div>
-
-        <div style="display: flex; justify-content: center; margin: 24px 0px">
-          <a id="view-collection" href="">
-            <div
-              class="border-light-brown-2 w3-padding-large bold w3-round-large"
-            >
-              View Collection
+      <section>
+        <div class="padding">
+          <div class="w3-row">
+            <div class="w3-col s12 l8">
+              <p id="id" class="jumbo no-margin" style="font-weight: 500"></p>
+              <p id="description" class="small bold text-grey no-margin-3"></p>
+              <div
+                class="w3-row w3-margin-top w3-hide-small"
+                style="width: 40%"
+              >
+                <div class="w3-col s6" style="padding: 0px 4px">
+                  <div
+                    
+                    class="w3-white w3-padding w3-center w3-round-large bold medium pointer"
+                  >
+                    <i id="follow" class="fa fa-plus w3-padding-small"></i>
+                    Follow
+                  </div>
+                </div>
+                <div class="w3-col s6">
+                  <div class="w3-row">
+                    <div class="w3-col s6 w3-center" style="padding: 0px 4px; display: none;">
+                      <div class="background-brown w3-round-large w3-padding">
+                        <i class="fa fa-share-alt"></i>
+                      </div>
+                    </div>
+                    <div class="w3-col s6 w3-center" style="padding: 0px 4px; display: none;">
+                      <div class="w3-padding background-brown w3-round-large">
+                        <i class="fa fa-ellipsis-h"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </a>
+            <div class="w3-col s12 l4">
+              <div
+                class="border-light-brown-2 w3-padding"
+                style="border-radius: 16px; margin-top: 2%"
+              >
+                <div class="w3-row">
+                  <div class="w3-col s6">
+                    <p class="small bold text-grey no-margin-2">Followers</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p id="followers" class="small bold w3-right no-margin-2">
+                      
+                    </p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small bold text-grey no-margin-2">Following</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p id="following" class="small bold w3-right no-margin-2">
+                      
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="border-light-brown-2 w3-margin-top w3-margin-bottom"
+                ></div>
+                <div class="w3-row">
+                  <div class="w3-col s6">
+                    <p class="small bold text-grey no-margin-2">Blockchain</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small bold w3-right no-margin-2">Ethereum</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p class="small bold text-grey no-margin-2">Address</p>
+                  </div>
+                  <div class="w3-col s6">
+                    <p id="address" class="small bold w3-right no-margin-2">
+                      <span class="pointer" style="margin-left: 4px">
+                        <i class="fa fa-clone text-grey"></i
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="w3-row w3-margin-top w3-hide-large w3-hide-medium"
+                style="width: 70%"
+              >
+                <div class="w3-col s6" style="padding: 0px 4px">
+                  <div
+                    id="follow"
+                    class="w3-white w3-padding w3-center w3-round-large bold medium pointer"
+                  >
+                    <i class="fa fa-plus"></i>
+                    Follow
+                  </div>
+                </div>
+                <div class="w3-col s6">
+                  <div class="w3-row">
+                    <div class="w3-col s6 w3-center" style="padding: 0px 4px; display: none;">
+                      <div class="background-brown w3-round-large w3-padding">
+                        <i class="fa fa-share-alt"></i>
+                      </div>
+                    </div>
+                    <div class="w3-col s6 w3-center" style="padding: 0px 4px; display: none;">
+                      <div class="w3-padding background-brown w3-round-large">
+                        <i class="fa fa-ellipsis-h"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
+      </section>
+      <section>
+			<div class="padding">
+				<div id="activity-width" class="w3-row">
+					<div class="w3-col s3" style="padding-right: 16px">
+						<p id="owned"
+							class="bold no-margin pointer w3-center text-grey-2 item"
+							style="padding: 12px 0px">
+							Owned <span id="owned-quantity" class="x-small background-grey quantity w3-text-black"
+								style="width: 4px; height: 4px; border-radius: 4px; padding: 0px 4px; margin-bottom: 0px; display: none"></span>
+						</p>
+					</div>
+					<div class="w3-col s3" style="padding-right: 16px">
+						<p id="on-sale"
+							class="bold text-grey-2 no-margin pointer w3-center item"
+							style="padding: 12px 0px">On sale <span id="on-sale-quantity" class="x-small background-grey quantity w3-text-black"
+								style="width: 4px; height: 4px; border-radius: 4px; padding: 0px 4px; margin-bottom: 0px; display: none"></span></p>
+					</div>
+					<div class="w3-col s3" style="padding-right: 16px">
+						<p id="created"
+							class="bold text-grey-2 no-margin pointer w3-center item"
+							style="padding: 12px 0px">Created <span id="created-quantity" class="x-small background-grey quantity w3-text-black"
+								style="width: 4px; height: 4px; border-radius: 4px; padding: 0px 4px; margin-bottom: 0px; display: none"></span></p>
+					</div>
+					<div class="w3-col s3" style="padding-right: 16px">
+						<p id="activity"
+							class="bold text-grey-2 no-margin pointer w3-center"
+							style="padding: 12px 0px">Activity</p>
+					</div>
+				</div>
+				<div
+					style="border-bottom: 1px solid rgb(69, 72, 74, 0.322); margin-bottom: 14px;"></div>
+				
+					<div id="owned-root" class="w3-row items-root" style="padding: 16px 0px">
+						
+					</div>
+					<div id="on-sale-root" class="w3-row items-root" style="padding: 16px 0px;">
+					
+					
+					</div>
+					<div id="created-root" class="w3-row items-root" style="padding: 16px 0px">
+						
+					</div>
+					<div id="activity-root" class="w3-row items-root" style="padding: 16px 0px">
+						
+					</div>
+					
+			</div>
+		</section>
       <section>
         <div class="padding">
           <div style="margin-top: 64px">
@@ -851,307 +707,8 @@
           </div>
         </div>
       </section>
-
-      <div
-        id="buy-modal"
-        class="buy-modal-style"
-        style="height: 93vh; position: fixed; bottom: 0px; display: none"
-      >
-        <div
-          id="nft-loading"
-          class="w3-center padding-modal background-brown border-light-brown-2 buy-modal-content-style"
-          style="position: absolute; width: 100%; display: block"
-        >
-          <i
-            class="fa fa-spinner fa-spin no-margin-3"
-            style="font-size: 50px"
-          ></i>
-          <p class="bigger bold w3-center" style="margin-bottom: -4px">
-            Loading
-          </p>
-          <p class="text-grey-2 bold">Automating process</p>
-          <div style="display: flex; justify-content: center">
-            <div
-              id="cancel-buy"
-              class="border-light-brown-2 bold w3-padding w3-round-large pointer"
-              style="width: 40%"
-            >
-              Cancel
-            </div>
-          </div>
-        </div>
-        <div
-          id="nft-checkout"
-          class="w3-padding-large background-brown border-light-brown-2 buy-modal-content-style"
-          style="position: absolute; width: 100%; display: none"
-        >
-          <p class="big bold">Checkout</p>
-          <p class="text-grey-2 bold medium">
-            You are about to purchase a
-            <span id="nft-transact-name" class="w3-text-white"></span> from
-            <span id="nft-transact-owner" class="w3-text-white"></span>
-          </p>
-          <div class="w3-row w3-padding border-light-brown-2 w3-round-xlarge">
-            <div class="w3-col s2">
-              <img src="./images/eth.svg" alt="" style="width: 70%" />
-            </div>
-            <div class="w3-col s8">
-              <p class="bold small no-margin-3">0x55fc1...4C0F</p>
-              <p class="text-grey-2 bold small no-margin-3">Ethereum</p>
-            </div>
-            <div class="w3-col s2">
-              <div
-                class="x-small w3-round bold w3-text-green"
-                style="padding: 1px 2px; background-color: rgb(31, 48, 38)"
-              >
-                Connected
-              </div>
-            </div>
-          </div>
-          <div
-            class="background-brown-4 w3-margin-top w3-round-large"
-            style="padding: 2px"
-          >
-            <div
-              class="w3-padding-large pointer background-primary bold w3-round-large w3-center"
-            >
-              Pay with crypto
-            </div>
-          </div>
-          <div class="w3-row w3-margin-top">
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold text-grey-2">Balance</p>
-            </div>
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold w3-right">
-                <span id="balance"></span> ETH
-              </p>
-            </div>
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold text-grey-2">Service fee 1.5%</p>
-            </div>
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold w3-right">
-                <span id="service-fee"></span> ETH
-              </p>
-            </div>
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold text-grey-2">You will pay</p>
-            </div>
-            <div class="w3-col s6">
-              <p class="small no-margin-3 bold w3-right">
-                <span id="pay"></span> ETH
-              </p>
-            </div>
-          </div>
-          <div
-            id="proceed-to-payment"
-            class="w3-white bold pointer w3-center w3-padding-large w3-round-large w3-margin-top w3-margin-bottom"
-          >
-            Proceed to payment
-          </div>
-        </div>
-
-        <div
-          id="nft-transaction"
-          class="w3-padding-large background-brown border-light-brown-2 buy-modal-content-style"
-          style="position: absolute; width: 100%; display: none"
-        >
-          <p class="big bold">Follow steps</p>
-          <div class="w3-row">
-            <div class="w3-col s2">
-              <i
-                id="approve-asset"
-                class="fa fa-spinner fa-spin biggest"
-                style="font-size: 40px; margin-top: 22px"
-              ></i>
-            </div>
-            <div class="w3-col s10">
-              <p class="big bold no-margin-3">Approve asset</p>
-              <p class="text-grey-2 bold no-margin-3">
-                This transaction is conducted only once per asset type
-              </p>
-            </div>
-          </div>
-          <div class="w3-row w3-margin-top">
-            <div class="w3-col s2">
-              <i
-                id="purchase"
-                class="fa fa-spinner fa-spin biggest"
-                style="font-size: 40px; margin-top: 8px"
-              ></i>
-            </div>
-            <div class="w3-col s10">
-              <p class="big bold no-margin-3">Purchase</p>
-              <p class="text-grey-2 bold no-margin-3">
-                Send transaction to purchase asset
-              </p>
-            </div>
-          </div>
-          <div
-            id="cancel-transaction"
-            class="border-light-brown-2 w3-margin-top w3-margin-bottom w3-center bold w3-padding-large w3-round-large pointer"
-          >
-            Cancel
-          </div>
-          <div
-            id="transaction-error"
-            class="small w3-margin-bottom"
-            style="display: none"
-          >
-            <p class="w3-text-red bold no-margin-3 w3-center">
-              Client error. Message from client. Metamask Tx
-            </p>
-            <p class="w3-text-red bold no-margin-3 w3-center">
-              Signature. User denied transaction signature.
-            </p>
-          </div>
-        </div>
-        <div
-          id="transaction-complete"
-          class="w3-padding-large background-brown border-light-brown-2 buy-modal-content-style-2"
-          style="position: absolute; width: 100%; display: none"
-        >
-          <div id="transact-image" class="w3-center" style="width: 100%"></div>
-          <p class="text-grey bold medium w3-center">
-            You successfully purchased
-            <span id="completed-transact-name" class="w3-text-white"></span>
-          </p>
-          <div class="w3-row w3-padding border-light-brown-2 w3-round-xlarge">
-            <div class="w3-col s3">
-              <p class="bold no-margin-2 text-grey-2 small">Status</p>
-              <p class="bold no-margin-2 w3-text-green small">Confirmed</p>
-            </div>
-            <div class="w3-col s9">
-              <p class="bold no-margin-2 text-grey-2 small">Transaction hash</p>
-              <p
-                class="bold no-margin-2 small"
-                style="
-                  text-overflow: ellipsis;
-                  overflow: hidden;
-                  white-space: nowrap;
-                "
-              >
-                0xd38ff6b9b4a7e6d58e48968c54868d5cd7d397e3d4a92f1cd5678973ba5946fb
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <p class="w3-center bold big">Let's show-off a little</p>
-            <div class="w3-row-padding w3-center" style="padding: 0px 60px">
-              <div class="w3-col s3">
-                <a id="twitter" href="">
-                  <div
-                    class="w3-padding-small w3-center border-light-brown-2 w3-round-large"
-                  >
-                    <svg
-                      viewBox="0 0 16 12"
-                      fill="none"
-                      width="24"
-                      height="20"
-                      xlmns="http://www.w3.org/2000/svg"
-                      style="margin-top: 4px"
-                    >
-                      <path
-                        d="M13.7247 2.99772C13.7345 3.12897 13.7345 3.25947 13.7345 3.38997C13.7345 7.38372 10.6948 11.9857 5.1395 11.9857C3.428 11.9857 1.838 11.49 0.5 10.629C0.743 10.6567 0.977 10.6665 1.22975 10.6665C2.642 10.6665 3.94175 10.1895 4.9805 9.37572C3.65225 9.34797 2.53925 8.47797 2.15525 7.28097C2.342 7.30872 2.5295 7.32747 2.726 7.32747C2.99675 7.32747 3.269 7.28997 3.52175 7.22472C2.1365 6.94422 1.09925 5.72847 1.09925 4.25997V4.22247C1.502 4.44672 1.96925 4.58697 2.46425 4.60572C1.6505 4.06422 1.11725 3.13797 1.11725 2.09022C1.11725 1.52922 1.2665 1.01472 1.52825 0.566221C3.0155 2.39847 5.25125 3.59622 7.75775 3.72747C7.71125 3.50247 7.68275 3.26922 7.68275 3.03522C7.68275 1.37022 9.02975 0.0142212 10.7037 0.0142212C11.5737 0.0142212 12.359 0.378721 12.911 0.968221C13.5935 0.836971 14.2475 0.584221 14.828 0.238471C14.6038 0.939721 14.126 1.52922 13.4998 1.90347C14.108 1.83747 14.6975 1.66947 15.239 1.43547C14.828 2.03397 14.3142 2.56722 13.7247 2.99772Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
-                <p class="w3-center x-small text-grey-2 bold no-margin-3">
-                  Twitter
-                </p>
-              </div>
-              <div class="w3-col s3">
-                <a id="facebook" href="">
-                  <div
-                    class="w3-padding-small w3-center border-light-brown-2 w3-round-large"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      width="24"
-                      height="24"
-                      xlmns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.001 2.00195C6.47895 2.00195 2.00195 6.47895 2.00195 12.001C2.00195 16.991 5.65795 21.127 10.439 21.88V14.892H7.89895V12.001H10.439V9.79795C10.439 7.28995 11.932 5.90695 14.215 5.90695C15.309 5.90695 16.455 6.10195 16.455 6.10195V8.56095H15.191C13.951 8.56095 13.563 9.33295 13.563 10.124V11.999H16.334L15.891 14.89H13.563V21.878C18.344 21.129 22 16.992 22 12.001C22 6.47895 17.523 2.00195 12.001 2.00195Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
-                <p class="w3-center x-small text-grey-2 bold no-margin-3">
-                  Facebook
-                </p>
-              </div>
-              <div class="w3-col s3">
-                <a id="telegram" href="">
-                  <div
-                    class="w3-padding-small w3-center border-light-brown-2 w3-round-large"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      width="24"
-                      height="24"
-                      xlmns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M20.6601 4.22511C20.3531 3.96474 19.8708 3.92749 19.3722 4.12768H19.3713C18.8469 4.33811 4.52653 10.4806 3.94356 10.7315C3.83753 10.7684 2.91149 11.1139 3.00688 11.8835C3.09203 12.5774 3.8363 12.8648 3.92719 12.898L7.56787 14.1446C7.80941 14.9486 8.69983 17.915 8.89674 18.5488C9.01956 18.9438 9.21975 19.4629 9.5706 19.5698C9.87846 19.6885 10.1847 19.58 10.3828 19.4245L12.6087 17.3599L16.2019 20.1622L16.2874 20.2133C16.5314 20.3214 16.7652 20.3755 16.9883 20.3755C17.1606 20.3755 17.326 20.3431 17.4841 20.2784C18.0224 20.0574 18.2377 19.5444 18.2603 19.4863L20.9442 5.53557C21.108 4.79048 20.8803 4.41139 20.6601 4.22511ZM10.7787 14.6432L9.55054 17.9183L8.32237 13.8244L17.7383 6.86485L10.7787 14.6432Z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
-                </a>
-                <p class="w3-center x-small text-grey-2 bold no-margin-3">
-                  Telegram
-                </p>
-              </div>
-              <div class="w3-col s3">
-                <div
-                  class="w3-padding-small w3-center border-light-brown-2 w3-round-large"
-                >
-                  <svg
-                    id="copy"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    width="24"
-                    height="24"
-                    xlmns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18.6693 5.33057C16.8144 3.47558 13.8068 3.47558 11.9518 5.33057L10.8912 6.39123C10.5983 6.68413 10.5983 7.159 10.8912 7.45189C11.1841 7.74479 11.6589 7.74479 11.9518 7.45189L13.0125 6.39123C14.2817 5.12203 16.3395 5.12203 17.6087 6.39123C18.8779 7.66044 18.8779 9.71822 17.6087 10.9874L15.4874 13.1087C14.2182 14.378 12.1604 14.378 10.8912 13.1087C10.5983 12.8159 10.1234 12.8159 9.83051 13.1087C9.53762 13.4016 9.53762 13.8765 9.83051 14.1694C11.6855 16.0244 14.693 16.0244 16.548 14.1694L18.6693 12.0481C20.5243 10.1931 20.5243 7.18556 18.6693 5.33057Z"
-                      fill="currentColor"
-                    ></path>
-                    <path
-                      d="M14.1695 9.83057C12.3145 7.97558 9.30701 7.97558 7.45202 9.83057L5.3307 11.9519C3.47571 13.8069 3.47571 16.8144 5.3307 18.6694C7.18569 20.5244 10.1932 20.5244 12.0482 18.6694C12.3411 18.3765 12.3411 17.9016 12.0482 17.6087C11.7553 17.3159 11.2804 17.3159 10.9875 17.6087C9.71835 18.878 7.66056 18.878 6.39136 17.6087C5.12215 16.3395 5.12215 14.2818 6.39136 13.0126L8.51268 10.8912C9.78188 9.62203 11.8397 9.62203 13.1089 10.8912C13.4018 11.1841 13.8766 11.1841 14.1695 10.8912C14.4624 10.5983 14.4624 10.1235 14.1695 9.83057Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-                <p class="w3-center x-small text-grey-2 bold no-margin-3">
-                  Copy
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="border-light-brown-2 bold pointer w3-center w3-padding-large w3-round-large w3-margin-top w3-margin-bottom"
-          >
-            <a id="view-nft" href=""> View NFT </a>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="./js/ERC20.js"></script>
-    <!-- <script type="text/babel" src="./js/connect2.js"></script> -->
-    <script type="text/babel" src="./js/nft.js"></script>
+    <script src="./js/owner.js"></script>
   </body>
 </html>

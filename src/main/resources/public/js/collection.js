@@ -1,5 +1,3 @@
-let address = new URLSearchParams(window.location.search).get("wallet");
-
 let details = navigator.userAgent;
 let length;
 
@@ -451,6 +449,7 @@ const getNftCollection = (nftCollection, isAddressListed) => {
       );
       if (!isAddressListed) {
         document.getElementById("name").textContent = response.name;
+        document.title = `${response.name} on Sensis: Buy, Sell and Trade | Sensis`
         document.getElementById("description").textContent = response.symbol;
       }
     }
@@ -476,6 +475,7 @@ if (hasAddress) {
       (collection) => collection["address"] == address
     );
     document.getElementById("name").textContent = addressListed.name;
+    document.title = `${addressListed.name} on Sensis: Buy, Sell and Trade | Sensis`
     document.getElementById("description").textContent =
       addressListed.description;
     document.getElementById("image").innerHTML = placeImage2(
@@ -500,8 +500,70 @@ document.body.addEventListener("click", function (e) {
       "load-more"
     ).innerHTML = `<span class="fa fa-spinner bigger fa-spin"></span>`;
     getNftCollectionItems(address, true, continuationKey);
-  }
-  else if(targetId == "activity") {
+  } else if (targetId == "activity") {
     location.reload();
   }
+  else if (e.target.id == "toggle-search") {
+		openOrClose("nav-bar", "search-bar");
+	} else if (e.target.id == "close-search") {
+		openOrClose("search-bar", "nav-bar");
+	} else if (
+		e.target.id == "open-nav-sidebar" ||
+		e.target.id == "open-nav-sidebar-2"
+	) {
+		document.getElementById("nav-sidebar").style.display = "block";
+	} else if (e.target.id == "close-nav-sidebar") {
+		document.getElementById("nav-sidebar").style.display = "none";
+	}
 });
+
+let account = "";
+
+checkConnection();
+
+function checkConnection() {
+  ethereum
+    .request({ method: "eth_accounts" })
+    .then(function (accounts) {
+      if (accounts.length > 0) {
+        account = accounts[0];
+        document.getElementById("connect-2").style.display = "none";
+        document.getElementById("profile-image").style.display = "block";
+        document.getElementById("notification").style.display = "block";
+        document.getElementById(
+          "profile"
+        ).href = `../profile.html?address=${account}`;
+         getUser2();
+      } else {
+        document.getElementById("connect-2").style.display = "block";
+        document.getElementById("profile-image").style.display = "none";
+        document.getElementById("notification").style.display = "none";
+      }
+    })
+    .catch(function (err) {
+      console.log(err);
+      document.getElementById("connect-2").style.display = "block";
+      document.getElementById("profile-image").style.display = "none";
+      document.getElementById("notification").style.display = "none";
+    });
+}
+
+function getUser2() {
+  let getUserXhr = new XMLHttpRequest();
+  getUserXhr.open("GET", `/user/${account}`, true);
+  getUserXhr.send();
+
+  getUserXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      console.log(response.avatar);
+      if (response.avatar != null) {
+        document.getElementById("profile-image-2").src =
+          "/images/" + response.avatar;
+      } else {
+        document.getElementById("profile-image-2").src =
+          "/images/" + "profile.svg";
+      }
+    }
+  };
+}

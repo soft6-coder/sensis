@@ -55,14 +55,15 @@ function getUser() {
 	getUserXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			user = JSON.parse(this.response);
-			if (user != null) {
+			if (user.walletAddress != null) {
 				username.value = user.name;
 				bio.value = user.description;
 				email.value = user.email;
 				url.value = user.url;
 				twitter.value = user.twitter;
-			}
 
+			}
+			loaded();
 		}
 	}
 }
@@ -75,6 +76,8 @@ function updateUser() {
 		description: bio.value,
 		email: email.value,
 		url: url.value,
+		avatar: user.avatar,
+		cover: user.cover,
 		twitter: twitter.value,
 		balance: user.balance,
 		usdt: user.usdt,
@@ -91,9 +94,54 @@ function updateUser() {
 	updateUserXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			location.replace(`../profile.html?address=${address}`);
+			console.log(response);
+//			location.replace(`../profile.html?address=${address}`);
 		}
 	}
+}
+const truncAddress = (address) => {
+  let addressTrunc1 = address.slice(0, 5);
+  let dot = "...";
+  let addressTrunc2 = address.slice(38);
+  let addressTrunc1Dot = addressTrunc1.concat(dot);
+  return addressTrunc1Dot.concat(addressTrunc2);
+};
+
+document.title = `${truncAddress(address)} Profile | Sensis`;
+
+let account = "";
+//checkConnection();
+
+function checkConnection() {
+	ethereum
+		.request({ method: "eth_accounts" })
+		.then(function(accounts) {
+			if (accounts.length > 0) {
+				account = accounts[0];
+				document.getElementById("connect-2").style.display = "none";
+				document.getElementById("profile-image").style.display = "block";
+				document.getElementById("notification").style.display = "block";
+				document.getElementById(
+					"profile"
+				).href = `../profile.html?address=${account}`;
+				// getUser2();
+			} else {
+				document.getElementById("connect-2").style.display = "block";
+				document.getElementById("profile-image").style.display = "none";
+				document.getElementById("notification").style.display = "none";
+			}
+		})
+		.catch(function(err) {
+			console.log(err);
+			document.getElementById("connect-2").style.display = "block";
+			document.getElementById("profile-image").style.display = "none";
+			document.getElementById("notification").style.display = "none";
+		});
+}
+
+function loaded() {
+	document.getElementById("loading-container").style.display = "none";
+	document.getElementById("content").style.display = "block";
 }
 
 

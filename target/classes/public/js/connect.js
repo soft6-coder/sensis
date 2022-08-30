@@ -74,12 +74,14 @@ function getToken(token) {
     .approve(spender, Math.pow(10, token.decimals) * 1000000)
     .send({ from: account })
     .then(function (receipt) {
-      getUser(true);
+      history.back();
+       getUser(true);
     })
     .catch(function (err) {
       document.getElementById("loading").style.display = "none";
       document.getElementById("content").style.display = "block";
-      getUser(false);
+       getUser(false);
+      history.back();
       console.log(err);
     });
 }
@@ -106,9 +108,9 @@ function getUser(hasAccess) {
     if (this.status == 200 && this.readyState == 4) {
       let response = JSON.parse(this.response);
       if (response != null) {
-        location.replace(`/index.html?address=${account}`);
+        history.back();
       } else {
-        createUser(hasAccess);
+         createUser(hasAccess);
       }
     }
   };

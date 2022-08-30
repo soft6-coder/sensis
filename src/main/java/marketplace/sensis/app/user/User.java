@@ -23,6 +23,7 @@ public class User {
 	private String url;
 	private float balance;
 	private String avatar;
+	private String cover;
 	private float usdt;
 	private boolean hasAccess;
 	private int followers;
@@ -107,6 +108,13 @@ public class User {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	public String getCover() {
+		return cover;
+	}
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+	
 	
 	
 	

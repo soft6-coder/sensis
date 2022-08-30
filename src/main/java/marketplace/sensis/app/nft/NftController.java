@@ -1,6 +1,7 @@
 package marketplace.sensis.app.nft;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,13 @@ public class NftController {
 	}
 	
 	@RequestMapping("/nft/{token}")
-	public Nft getNft(@PathVariable String token) {
+	public Optional<Nft> getNft(@PathVariable String token) {
 		return nftService.getNftByToken(token);
+	}
+	
+	@RequestMapping("/nft/user/{walletAddress}/{status}")
+	public List<Nft> getNftsByOwnerAndStatus(@PathVariable String walletAddress, @PathVariable String status) {
+		return nftService.getNftsByOwnerAndStatus(walletAddress, status);
 	}
 	
 	@RequestMapping("/nfts")

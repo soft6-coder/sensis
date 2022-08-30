@@ -263,3 +263,34 @@ a {
     height: 70%;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .nav {
+    background: rgb(25, 28, 31) none repeat scroll 0% 0%;
+    padding: 12px 0px;
+  }
+  .nav-2 {
+    padding: 24px 4px;
+  }
+  .padding {
+    padding: 12px 6px;
+  }
+  .padding-3 {
+    padding: 12px 6px;
+  }
+  .padding-4 {
+    padding: 12px 2px;
+  }
+  .padding-2 {
+    padding: 12px 6px;
+  }
+  .padding-modal {
+    padding: 30px 0px;
+  }
+  .nft-height {
+    height: 125px;
+  }
+  .nft-video-height {
+    height: 120px;
+  }
+}

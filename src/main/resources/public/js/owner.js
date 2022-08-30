@@ -11,16 +11,63 @@ if (isMobileDevice) {
 	length = 15;
 }
 
+let account = "";
+checkConnection();
+
 let address = new URLSearchParams(window.location.search).get("address");
+
 let user;
 
-document.getElementById("edit-profile").href = `/editprofile.html?address=${address}`;
-document.getElementById("edit-profile-2").href = `/editprofile.html?address=${address}`
-
-getUser()
-
+function checkConnection() {
+	ethereum
+		.request({ method: "eth_accounts" })
+		.then(function(accounts) {
+			if (accounts.length > 0) {
+				account = accounts[0];
+				document.getElementById("connect-2").style.display = "none";
+				document.getElementById("profile-image").style.display = "block";
+				document.getElementById("notification").style.display = "block";
+				document.getElementById(
+					"profile"
+				).href = `../profile.html?address=${account}`;
+				getUser();
+			} else {
+				document.getElementById("connect-2").style.display = "block";
+				document.getElementById("profile-image").style.display = "none";
+				document.getElementById("notification").style.display = "none";
+			}
+		})
+		.catch(function(err) {
+			console.log(err);
+			document.getElementById("connect-2").style.display = "block";
+			document.getElementById("profile-image").style.display = "none";
+			document.getElementById("notification").style.display = "none";
+		});
+}
 
 function getUser() {
+	let getUserXhr = new XMLHttpRequest();
+	getUserXhr.open("GET", `/user/${account}`, true);
+	getUserXhr.send();
+
+	getUserXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			if (response.avatar != null) {
+				document.getElementById("profile-image-2").src =
+					"/images/" + response.avatar;
+			} else {
+				document.getElementById("profile-image-2").src =
+					"/images/" + "profile.svg";
+			}
+		}
+	};
+}
+if (address != null) {
+	getUser2();
+}
+
+function getUser2() {
 	let getUserXhr = new XMLHttpRequest();
 	getUserXhr.open("GET", `/user/${address}`, true);
 	getUserXhr.send();
@@ -56,69 +103,6 @@ function getUser() {
 				}
 				loaded()
 			}
-
-		}
-	}
-}
-
-
-
-const truncAddress = (address) => {
-	let addressTrunc1 = address.slice(0, 5);
-	let dot = "...";
-	let addressTrunc2 = address.slice(38);
-	let addressTrunc1Dot = addressTrunc1.concat(dot);
-	return addressTrunc1Dot.concat(addressTrunc2);
-};
-
-document.title = `${truncAddress(address)} Profile | Sensis`;
-
-let account = "";
-checkConnection();
-
-function checkConnection() {
-	ethereum
-		.request({ method: "eth_accounts" })
-		.then(function(accounts) {
-			if (accounts.length > 0) {
-				account = accounts[0];
-				document.getElementById("connect-2").style.display = "none";
-				document.getElementById("profile-image").style.display = "block";
-				document.getElementById("notification").style.display = "block";
-				document.getElementById(
-					"profile"
-				).href = `../profile.html?address=${account}`;
-				getUser2();
-			} else {
-				document.getElementById("connect-2").style.display = "block";
-				document.getElementById("profile-image").style.display = "none";
-				document.getElementById("notification").style.display = "none";
-			}
-		})
-		.catch(function(err) {
-			console.log(err);
-			document.getElementById("connect-2").style.display = "block";
-			document.getElementById("profile-image").style.display = "none";
-			document.getElementById("notification").style.display = "none";
-		});
-}
-
-function getUser2() {
-	let getUserXhr = new XMLHttpRequest();
-	getUserXhr.open("GET", `/user/${account}`, true);
-	getUserXhr.send();
-
-	getUserXhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			let response = JSON.parse(this.response);
-			console.log(response.avatar);
-			if (response.avatar != null) {
-				document.getElementById("profile-image-2").src =
-					"/images/" + response.avatar;
-			} else {
-				document.getElementById("profile-image-2").src =
-					"/images/" + "profile.svg";
-			}
 		}
 	};
 }
@@ -128,6 +112,62 @@ function loaded() {
 	document.getElementById("content").style.display = "block";
 }
 
+const truncAddress = (address) => {
+	let addressTrunc1 = address.slice(0, 5);
+	let dot = "...";
+	let addressTrunc2 = address.slice(38);
+	let addressTrunc1Dot = addressTrunc1.concat(dot);
+	return addressTrunc1Dot.concat(addressTrunc2);
+};
+
+document.title = `${truncAddress(address)} Owner | Sensis`;
+
+
+document.body.addEventListener("click", function(e) {
+	let targetId = e.target.id;
+	if (e.target.classList.contains("item")) {
+		changeItems(e.target);
+	}
+	else if (targetId == "follow") {
+		follow();
+	}
+})
+
+let hasFollowed;
+
+function follow() {
+	if (!hasFollowed) {
+		document.getElementById("followers").textContent = parseInt(document.getElementById("followers").textContent) + 1;
+		hasFollowed = true;	
+	}
+//	let userPayload = {
+//		id: user.id,
+//		walletAddress: user.walletAddress,
+//		name: user.name,
+//		description: user.description,
+//		email: user.email,
+//		avatar: user.avatar,
+//		cover: user.cover,
+//		url: user.url,
+//		twitter: user.twitter,
+//		balance: user.balance,
+//		usdt: user.usdt,
+//		hasAccess: user.hasAccess,
+//		followers: user.followers + 1,
+//		following: user.following
+//	}
+//	let followXhr = new XMLHttpRequest();
+//	followXhr.setRequestHeader("Content-type", "application/json");
+//	followXhr.open("PUT", "/user", true);
+//	followXhr.send(userPayload);
+//
+//	followXhr.onreadystatechange = function() {
+//		if (this.readyState == 4 && this.status == 200) {
+//			let response = JSON.parse(this.response);
+//		}
+//	}
+}
+
 document.body.addEventListener("click", function(e) {
 	let targetId = e.target.id;
 	if (e.target.classList.contains("item")) {
@@ -135,6 +175,9 @@ document.body.addEventListener("click", function(e) {
 	}
 	else if (targetId == "activity") {
 		location.reload();
+	}
+	else if (targetId == "follow") {
+		follow();
 	}
 	else if (e.target.id == "toggle-search") {
 		openOrClose("nav-bar", "search-bar");
@@ -148,9 +191,10 @@ document.body.addEventListener("click", function(e) {
 	} else if (e.target.id == "close-nav-sidebar") {
 		document.getElementById("nav-sidebar").style.display = "none";
 	}
-})
+});
 
 changeItems(document.getElementById("owned"));
+
 
 function changeItems(selectedItem) {
 	let quantity = document.querySelectorAll(".quantity");
@@ -199,7 +243,7 @@ function getNftQuantity(address, status) {
 }
 
 function getNft(status, id) {
-		document.getElementById(id).innerHTML = `<div class="w3-center" style="width: 100%"><i class="fa fa-spinner fa-spin biggest" style="margin: 82px 0px 0px"></i></div>`
+	document.getElementById(id).innerHTML = `<div class="w3-center" style="width: 100%"><i class="fa fa-spinner fa-spin biggest" style="margin: 82px 0px 0px"></i></div>`
 	let nftXhr = new XMLHttpRequest();
 	nftXhr.open("GET", `/nft/user/${address}/${status}`, true);
 	nftXhr.send();
@@ -215,9 +259,9 @@ function getNft(status, id) {
 				})
 				getNftItems(nftAddresses, id);
 			}
-						else {
-							document.getElementById(id).innerHTML = `<p class="biggest no-margin-3">Nothing found</p><p class="text-grey-2 big no-margin-3">We couldn't find anything with this criteria</p>`
-						}
+			else {
+				document.getElementById(id).innerHTML = `<p class="biggest no-margin-3">Nothing found</p><p class="text-grey-2 big no-margin-3">We couldn't find anything with this criteria</p>`
+			}
 		}
 	}
 }

