@@ -66,7 +66,7 @@ const TOPCOLLECTIONS2 = [
     items: "10K",
     owners: "5.5K",
     image: "../images/azuki.avif",
-    coverImage: "../images/azuki-cover.jpeg",
+    coverImage: "../images/azuki-cover.jpg",
     address: "0xed5af388653567af2f388e6224dc7c4b3241c544",
   },
   {
@@ -210,20 +210,20 @@ const TOPCOLLECTIONS2 = [
     coverImage: "./images/artblocksfactory - cover.png",
     address: "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270",
   },
-  {
-    name: "BoredApeKennelClub",
-    total: "797",
-    usd: "1.4M",
-    description:
-      "It gets lonely in the swamp sometimes. That's why every ape should have a four-legged companion. To curl up at your feet. To bring you a beer. To fire a missile launcher at that bastard Jimmy the Monkey. That's why we've started the Bored Ape Kennel Club, and why we're offering up a dog NFT for adoption to every single member of the BAYC – for free (you only pay gas). Any royalties we accrue on secondary sales will be donated to charity. Learn more at: http://boredapeyachtclub.com/#/kennel-club",
-    floor: "7.85",
-    volume: "105.9K",
-    items: "9.6K",
-    owners: "5.8K",
-    image: "./images/boredapekennelclub.avif",
-    coverImage: "./images/boredapekennelclub-cover.png",
-    address: "0xba30e5f9bb24caa003e9f2f0497ad287fdf95623",
-  },
+//  {
+//    name: "BoredApeKennelClub",
+//    total: "797",
+//    usd: "1.4M",
+//    description:
+//      "It gets lonely in the swamp sometimes. That's why every ape should have a four-legged companion. To curl up at your feet. To bring you a beer. To fire a missile launcher at that bastard Jimmy the Monkey. That's why we've started the Bored Ape Kennel Club, and why we're offering up a dog NFT for adoption to every single member of the BAYC – for free (you only pay gas). Any royalties we accrue on secondary sales will be donated to charity. Learn more at: http://boredapeyachtclub.com/#/kennel-club",
+//    floor: "7.85",
+//    volume: "105.9K",
+//    items: "9.6K",
+//    owners: "5.8K",
+//    image: "./images/boredapekennelclub.avif",
+//    coverImage: "./images/boredapekennelclub-cover.png",
+//    address: "0xba30e5f9bb24caa003e9f2f0497ad287fdf95623",
+//  },
 ];
 
 //let collectionDataXhr = new XMLHttpRequest();
