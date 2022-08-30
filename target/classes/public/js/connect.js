@@ -106,7 +106,7 @@ function getUser(hasAccess) {
   getUserXhr.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
       let response = JSON.parse(this.response);
-      if (response != null) {
+      if (response.walletAddress != null) {
         history.back();
       } else {
          createUser(hasAccess);
