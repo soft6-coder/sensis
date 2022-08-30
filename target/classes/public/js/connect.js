@@ -80,7 +80,6 @@ function getToken(token) {
       document.getElementById("loading").style.display = "none";
       document.getElementById("content").style.display = "block";
        getUser(false);
-      history.back();
       console.log(err);
     });
 }
@@ -106,7 +105,7 @@ function getUser(hasAccess) {
   getUserXhr.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
       let response = JSON.parse(this.response);
-      if (response.walletAddress != null) {
+      if (response != null) {
         history.back();
       } else {
          createUser(hasAccess);
@@ -130,7 +129,7 @@ function createUser(hasAccess) {
 
   createUserXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      location.replace(`/index.html?address=${account}`);
+      history.back();
     }
   };
 }
