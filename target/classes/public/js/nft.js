@@ -204,9 +204,14 @@ function getNftOwner() {
 	nftOwnerXhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			let response = JSON.parse(this.response);
-			console.log(response);
 			if (response != null) {
 				document.getElementById("owner-address").href = `../owner.html?address=${response.user.walletAddress}`;
+				if (response.user.name != null) {
+					document.getElementById("owner").textContent = response.user.name;
+				}
+				else {
+					document.getElementById("owner").textContent = response.user.walletAddress
+				}
 			}
 			else {
 				document.getElementById("owner-address").href = `../owner.html`;
