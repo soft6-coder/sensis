@@ -12,9 +12,11 @@ if (isMobileDevice) {
 }
 
 let account = "";
-if (typeof window.ethereum != undefined) {
-	checkConnection();
+if (typeof window.ethereum == undefined) {
+	
 } else {
+	console.log(typeof window.ethereum);
+	checkConnection();
 }
 
 
