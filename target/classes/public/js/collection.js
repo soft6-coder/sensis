@@ -210,7 +210,7 @@ function checkConnection2(provider) {
 
 function getUser2() {
   let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
+  getUserXhr.open("GET", `/user/${account}`, true);
   getUserXhr.send();
 
   getUserXhr.onreadystatechange = function () {
