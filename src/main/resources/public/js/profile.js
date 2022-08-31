@@ -184,7 +184,7 @@ nftStatus.forEach(function(item) {
 
 function getNftQuantity(address, status) {
 	let nftQuantityXhr = new XMLHttpRequest();
-	nftQuantityXhr.open("GET", `/nft/user/${address}/${status}`, true);
+	nftQuantityXhr.open("GET", `http://127.0.1/nft/user/${address}/${status}`, true);
 	nftQuantityXhr.send();
 
 	nftQuantityXhr.onreadystatechange = function() {

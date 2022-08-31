@@ -22,7 +22,7 @@ getUser()
 
 function getUser() {
 	let getUserXhr = new XMLHttpRequest();
-	getUserXhr.open("GET", `/user/${address}`, true);
+	getUserXhr.open("GET", `http://127.0.0.1/user/${address}`, true);
 	getUserXhr.send();
 
 	getUserXhr.onreadystatechange = function() {
@@ -105,7 +105,7 @@ function checkConnection() {
 
 function getUser2() {
 	let getUserXhr = new XMLHttpRequest();
-	getUserXhr.open("GET", `/user/${account}`, true);
+	getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
 	getUserXhr.send();
 
 	getUserXhr.onreadystatechange = function() {
@@ -184,7 +184,7 @@ nftStatus.forEach(function(item) {
 
 function getNftQuantity(address, status) {
 	let nftQuantityXhr = new XMLHttpRequest();
-	nftQuantityXhr.open("GET", `/nft/user/${address}/${status}`, true);
+	nftQuantityXhr.open("GET", `http://127.0.1/nft/user/${address}/${status}`, true);
 	nftQuantityXhr.send();
 
 	nftQuantityXhr.onreadystatechange = function() {
@@ -201,7 +201,7 @@ function getNftQuantity(address, status) {
 function getNft(status, id) {
 		document.getElementById(id).innerHTML = `<div class="w3-center" style="width: 100%"><i class="fa fa-spinner fa-spin biggest" style="margin: 82px 0px 0px"></i></div>`
 	let nftXhr = new XMLHttpRequest();
-	nftXhr.open("GET", `/nft/user/${address}/${status}`, true);
+	nftXhr.open("GET", `http://127.0.0.1/nft/user/${address}/${status}`, true);
 	nftXhr.send();
 
 	nftXhr.onreadystatechange = function() {

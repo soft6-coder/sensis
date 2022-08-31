@@ -234,16 +234,24 @@
               </p>
             </div>
             <div class="w3-bar-block">
-              <a href="https://rarible.com/how-it-works"><p class="biggest bold no-margin-2">How it works</p></a>
+              <a href="https://rarible.com/how-it-works"
+                ><p class="biggest bold no-margin-2">How it works</p></a
+              >
             </div>
             <div class="w3-bar-block">
-              <a href="https://rarible.com/how-it-works"><p class="biggest bold no-margin-2">Blog</p></a>
+              <a href="https://rarible.com/how-it-works"
+                ><p class="biggest bold no-margin-2">Blog</p></a
+              >
             </div>
             <div class="w3-bar-block">
-              <a href="https://ethereum-api.rarible.org/v0.1/doc"><p class="bold text-grey-2">Sensis API</p></a>
+              <a href="https://ethereum-api.rarible.org/v0.1/doc"
+                ><p class="bold text-grey-2">Sensis API</p></a
+              >
             </div>
             <div class="w3-bar-block">
-              <a href="https://rariblecom.zendesk.com/hc/en-us"><p class="bold text-grey-2">Help center</p></a>
+              <a href="https://rariblecom.zendesk.com/hc/en-us"
+                ><p class="bold text-grey-2">Help center</p></a
+              >
             </div>
             <div style="position: absolute; bottom: 18px; width: 84%">
               <div
@@ -1148,10 +1156,83 @@
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <div id="download-metamask-modal" class="w3-modal" style="display: none">
+      <i
+        id="close-download-metamask-modal"
+        class="fa fa-times w3-text-red big w3-right w3-padding"
+      ></i>
+      <div
+        class="w3-modal-content w3-animate-zoom"
+        style="background-color: transparent; top: 30%"
+      >
+        <div class="background-primary w3-padding w3-padding-24 w3-round-large">
+          <div class="w3-center">
+            <img src="./images/metamask.svg" alt="" style="width: 10%" />
+            <p class="bold">
+              Please install Metamask extension for your browser to proceed.
+            </p>
+            <div style="display: flex; justify-content: center">
+              <div
+                id="install-metamask-wallet"
+                class="w3-padding w3-text-black w3-white bold w3-round-large pointer"
+                style="width: 70%"
+              >
+                Install Metamask
+              </div>
+            </div>
+
+            <div
+              style="display: flex; justify-content: center; margin-top: 8px"
+            >
+              <div
+                id="connect-metamask-wallet-again"
+                class="w3-padding border-light-brown-2 bold w3-round-large pointer"
+                style="width: 70%"
+              >
+                Connect Metamask
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="connect-wallet-modal" class="w3-modal" style="display: none">
+      <div
+        class="w3-modal-content w3-animate-zoom"
+        style="background-color: transparent; top: 20%"
+      >
+        <div class="background-primary w3-padding w3-padding-32 w3-round-large">
+          <div style="display: flex; justify-content: center">
+            <div
+              class="background-purple w3-round-xlarge"
+              style="width: 40px; height: 40px; padding: 8px"
+            >
+              <img src="./images/logo.png" alt="" style="width: 100%" />
+            </div>
+          </div>
+          <p class="bold big">Welcome to Sensis!</p>
+          <p class="medium">Proceed to Sign in. No password needed!</p>
+          <p class="medium">
+            This request will not trigger a blockchain transaction or cost any
+            gas fees.
+          </p>
+          <p class="medium">Your authentication status will be reset after 24 hours</p>
+
+          <div
+            id="connect-wallet"
+            class="w3-padding w3-center w3-white bold w3-round-large pointer"
+          >
+            Connect Wallet
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.1/dist/umd/index.min.js"></script>
     <script src="./js/ERC20.js"></script>
-    <!-- <script type="text/babel" src="./js/connect2.js"></script> -->
     <script type="text/babel" src="./js/nft.js"></script>
   </body>
 </html>

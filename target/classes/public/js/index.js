@@ -416,9 +416,9 @@ const bindTopcollections = (
           </div>
           <div class="w3-col s2">
             <img
+            class="collection-image"
               src="${image}"
               alt=""
-              style="height: 65px; width: 65px; border-radius: 65px"
             />
           </div>
           <div class="w3-col s7" style="padding-top: 12px; padding-left: 12px">
@@ -642,11 +642,55 @@ function openOrClose(close, open) {
   document.getElementById(open).style.display = "block";
 }
 
-let account = "";
-checkConnection();
+const walletConnectProviderConfig = new WalletConnectProvider.default({
+  infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
+  qrcodeModalOptions: {
+    desktopLinks: [
+      "ledger",
+      "tokenary",
+      "wallet",
+      "wallet 3",
+      "secuX",
+      "ambire",
+      "wallet3",
+      "apolloX",
+      "zerion",
+      "sequence",
+      "punkWallet",
+      "kryptoGO",
+      "nft",
+      "riceWallet",
+      "vision",
+      "keyring",
+    ],
+    mobileLinks: [
+      "metamask",
+      "trust",
+      "rainbow",
+      "argent",
+      "imtoken",
+      "pillar",
+    ],
+  },
+});
 
-function checkConnection() {
-  ethereum
+let account = "";
+
+if (typeof window.ethereum != undefined) {
+  checkConnection(window.ethereum);
+} else {
+  walletConnectProviderConfig
+    .enable()
+    .then(function (provider) {
+      checkConnection(provider);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function checkConnection(provider) {
+  provider
     .request({ method: "eth_accounts" })
     .then(function (accounts) {
       if (accounts.length > 0) {
@@ -657,7 +701,7 @@ function checkConnection() {
         document.getElementById(
           "profile"
         ).href = `../profile.html?address=${account}`;
-         getUser();
+        getUser(account);
       } else {
         document.getElementById("connect-2").style.display = "block";
         document.getElementById("profile-image").style.display = "none";
@@ -672,9 +716,9 @@ function checkConnection() {
     });
 }
 
-function getUser() {
+function getUser(account) {
   let getUserXhr = new XMLHttpRequest();
-  getUserXhr.open("GET", `/user/${account}`, true);
+  getUserXhr.open("GET", `http://127.0.0.1/user/${account}`, true);
   getUserXhr.send();
 
   getUserXhr.onreadystatechange = function () {

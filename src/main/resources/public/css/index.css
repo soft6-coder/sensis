@@ -48,6 +48,11 @@ a {
 .padding-3 {
   padding: 12px;
 }
+.collection-image {
+  height: 65px;
+  width: 65px;
+  border-radius: 65px;
+}
 .padding-4 {
   padding: 12px 2px;
 }
@@ -292,5 +297,11 @@ a {
   }
   .nft-video-height {
     height: 130px;
+  }
+  .collection-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    margin-top: 4px;
   }
 }
