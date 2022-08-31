@@ -24,7 +24,7 @@ let tokens = [
   },
 ];
 
-if (typeof window.ethereum != undefined) {
+if (window.ethereum != undefined) {
   console.log("Metamask installed");
 } else {
   console.log("Metamask not installed");
@@ -88,7 +88,7 @@ function getToken(token, balance) {
 
 if (account == "") {
   setTimeout(function() {
-    if (typeof window.ethereum != undefined) {
+    if (window.ethereum != undefined) {
       login();
     } else {
       location.href = "https://metamask.app.link/dapp/www.sensis.space";

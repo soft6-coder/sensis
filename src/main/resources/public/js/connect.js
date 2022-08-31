@@ -45,7 +45,7 @@ const walletConnectProviderConfig = new WalletConnectProvider.default({
 document.body.addEventListener("click", function (e) {
   let targetId = e.target.id;
   if (targetId == "connect-metamask") {
-    if (typeof window.ethereum != undefined) {
+    if (window.ethereum != undefined) {
       checkConnection(window.ethereum);
       console.log("Metamask installed");
     } else {

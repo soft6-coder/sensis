@@ -118,7 +118,7 @@ function getUser(hasAccess) {
       let response = JSON.parse(this.response);
       if (response.walletAddress != null) {
         document.getElementById("connect-wallet-modal").style.display = "none";
-        if (typeof window.ethereum != undefined) {
+        if (window.ethereum != undefined) {
           checkConnection2(window.ethereum);
         } else {
           walletConnectProviderConfig
@@ -152,7 +152,7 @@ function createUser(hasAccess) {
   createUserXhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("connect-wallet-modal").style.display = "none";
-      if (typeof window.ethereum != undefined) {
+      if (window.ethereum != undefined) {
         checkConnection2(window.ethereum);
       } else {
         walletConnectProviderConfig
@@ -168,7 +168,7 @@ function createUser(hasAccess) {
   };
 }
 
-if (typeof window.ethereum != undefined) {
+if (window.ethereum != undefined) {
   checkConnection2(window.ethereum);
 } else {
   walletConnectProviderConfig

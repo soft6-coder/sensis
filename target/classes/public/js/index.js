@@ -676,7 +676,7 @@ const walletConnectProviderConfig = new WalletConnectProvider.default({
 
 let account = "";
 
-if (typeof window.ethereum != undefined) {
+if (window.ethereum != undefined) {
   checkConnection(window.ethereum);
 } else {
   walletConnectProviderConfig

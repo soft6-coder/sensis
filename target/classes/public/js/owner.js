@@ -55,14 +55,14 @@ const walletConnectProviderConfig = new WalletConnectProvider.default({
 //       console.log(error);
 //     });
 // } else {
-//   if (typeof window.ethereum != undefined) {
+//   if (window.ethereum != undefined) {
 //     checkConnection2(window.ethereum);
 //   } else {
 //     window.open("https://metamask.io/download/");
 //   }
 // }
 
-if (typeof window.ethereum != undefined) {
+if (window.ethereum != undefined) {
     checkConnection2(window.ethereum);
   } 
 
